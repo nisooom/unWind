@@ -1,6 +1,9 @@
 "use client";
-import { signIn } from "next-auth/react";
+import { signIn} from "next-auth/react";
 import { options } from "@/app/api/auth/[...nextauth]/options";
+import {useState, useEffect} from "react";
+
+
 
 const SignIn = () => {
   return (
@@ -15,7 +18,7 @@ const SignIn = () => {
                   className="text-lg px-4 py-2 border flex gap-4 w-full rounded-sm justify-center items-center"
                   onClick={() =>
                     signIn(provider.id, {
-                      callbackUrl: "/SignIn",
+                      callbackUrl: "/",
                     })
                   }
                 >
