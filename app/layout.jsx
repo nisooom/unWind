@@ -16,7 +16,7 @@ export default function RootLayout({ children, session }) {
       <body className={inter.className}>
         <div className="flex h-full">
           <Sidebar /> 
-          {/* <Backdrop /> */}
+          <Backdrop />
           <main className="pl-40 flex bg-black box-border w-full">
             <div className="w-full h-full z-20"> {children}</div>
           </main>
