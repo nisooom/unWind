@@ -51,6 +51,33 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        sorrow_primary: "#89BBFE",
+        sorrow_secondary:"#00A3FF",
+        sorrow_accent:"#185ABE",
+
+        grateful_primary:"#FCA6C5",
+        grateful_secondary:"#FF87A5",
+        grateful_accent:"#FF2674",
+
+        jealous_primary:"#AADE76",
+        jealous_secondary:"#6FBB23",
+        jealous_accent:"#019701",
+
+        anxious_primary:"#CA9BD8",
+        anxious_secondary:"#AB81CD",
+        anxious_accent:"#654597",
+
+        neutral_primary:"#52D285",
+        neutral_secondary:"#3ABF5F",
+        neutral_accent:"#10992E",
+
+        happy_primary:"#EC9C33",
+        happy_secondary:"#E47007",
+        happy_accent:"#E75707",
+
+        anger_primary:"#FD2121",
+        anger_secondary:"#E7032A",
+        anger_accent:"#FF003D",
       },
       borderRadius: {
         lg: "var(--radius)",
