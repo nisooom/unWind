@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import fetchUsers from "@/db/fetch-users";
 import sendData from "@/db/send-data";
+import updateUserData from "@/db/update-user-data";
 
 const page = () => {
   const [data, setData] = useState(null);
@@ -21,6 +22,11 @@ const page = () => {
                 await sendData();
                 console.log("OMGDATASENT");
         }}>Send Dummy</button>
+        <button onClick={
+            async () => {
+                await updateUserData();
+                console.log("OMGDATAUPDATE");
+        }}>Update Data lmao</button>
 
     </div>
   );
