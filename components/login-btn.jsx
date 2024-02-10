@@ -7,7 +7,7 @@ export default function LoginButton() {
     return (
       <>
         <p className="text-sm font-semibold">
-          Signed in as {session.user.email}
+          Signed in as {session.user.name}
         </p>
         <button
           className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-all"

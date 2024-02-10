@@ -6,17 +6,17 @@ export const options = {
     signIn: "/auth/signin",
   },
   providers: [
-    GithubProvider({
-      profile(profile) {
-        let userRole = "github-user";
-        return {
-          ...profile,
-          role: userRole,
-        };
-      },
-      clientId: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    }),
+    // GithubProvider({
+    //   profile(profile) {
+    //     let userRole = "github-user";
+    //     return {
+    //       ...profile,
+    //       role: userRole,
+    //     };
+    //   },
+    //   clientId: process.env.GITHUB_CLIENT_ID,
+    //   clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    // }),
     GoogleProvider({
       profile(profile) {
         let userRole = "google-user";
