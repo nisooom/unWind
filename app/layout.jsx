@@ -3,6 +3,7 @@ import Sidebar from "@/components/Sidebar";
 import SidebarMobile from "@/components/SidebarMobile";
 import "./globals.css";
 import Backdrop from "@/components/Backdrop";
+import Coins from "@/components/Coins";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,6 +20,7 @@ export default function RootLayout({ children, session }) {
           <Sidebar />
           <SidebarMobile />
           <Backdrop />
+          <Coins />
           <main className="sm:pl-56 pb-24 md:pl-56 md:pb-0 flex bg-black box-border w-full">
             <div className="w-full h-full z-20"> {children}</div>
           </main>
