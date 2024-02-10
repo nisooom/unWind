@@ -4,7 +4,7 @@ import Timer from "@/components/Timer";
 const page = () => {
   return (
     <div>
-      <Timer time={10} type="classic" mood="angry" />
+      <Timer time={100} type="classic" mood="angry" />
     </div>
   );
 };

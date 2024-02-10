@@ -16,10 +16,18 @@ body,
     stroke: #86e8fb;
     transition: 0.3s ease-in-out;
   }
+  g {
+    fill: #86e8fb;
+    transition: 0.3s ease-in-out;
+  }
 }
 
 .round-fill:hover {
   path {
+    fill: #86e8fb;
+    transition: 0.3s ease-in-out;
+  }
+  g {
     fill: #86e8fb;
     transition: 0.3s ease-in-out;
   }

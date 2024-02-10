@@ -1,5 +1,6 @@
 import { Inter } from "next/font/google";
 import Sidebar from "@/components/Sidebar";
+import SidebarMobile from "@/components/SidebarMobile";
 import "./globals.css";
 import Backdrop from "@/components/Backdrop";
 
@@ -16,8 +17,9 @@ export default function RootLayout({ children, session }) {
       <body className={inter.className}>
         <div className="flex h-full">
           <Sidebar />
+          <SidebarMobile />
           <Backdrop />
-          <main className="pl-56 flex bg-black box-border w-full">
+          <main className="sm:pl-56 pb-24 md:pl-56 md:pb-0 flex bg-black box-border w-full">
             <div className="w-full h-full z-20"> {children}</div>
           </main>
         </div>
