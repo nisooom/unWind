@@ -5,6 +5,7 @@ export const options = {
   pages: {
     signIn: "/auth/signin",
   },
+
   providers: [
     // GithubProvider({
     //   profile(profile) {
@@ -30,6 +31,7 @@ export const options = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
+
   callbacks: {
     // async jwt({ token, user }) {
     //   if (user) {
