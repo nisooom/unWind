@@ -9,4 +9,18 @@ body,
 }
 .round {
   border-radius: 0.25rem;
+  transition: 0.3s ease-in-out;
+}
+.round:hover {
+  path {
+    stroke: #86e8fb;
+    transition: 0.3s ease-in-out;
+  }
+}
+
+.round-fill:hover {
+  path {
+    fill: #86e8fb;
+    transition: 0.3s ease-in-out;
+  }
 }
