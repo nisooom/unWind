@@ -80,6 +80,7 @@ module.exports = {
         anger_primary: "#FD2121",
         anger_secondary: "#E7032A",
         anger_accent: "#FF003D",
+        accent: "#86e8fb",
       },
       borderRadius: {
         lg: "var(--radius)",
