@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import fetchUsers from "@/db/fetch-users";
 import sendData from "@/db/send-data";
+import delData from "@/db/delete-data";
 
 const page = () => {
   const [data, setData] = useState(null);
@@ -22,6 +23,11 @@ const page = () => {
                 console.log("OMGDATASENT");
         }}>Send Dummy</button>
 
+        <button onClick={
+            async () => {
+                await delData();
+                console.log("OMGDATASENT");
+        }}>Delete Dummy</button>
     </div>
   );
 };
