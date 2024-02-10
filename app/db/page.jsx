@@ -27,7 +27,6 @@ const page = () => {
                 await updateUserData();
                 console.log("OMGDATAUPDATE");
         }}>Update Data lmao</button>
-
     </div>
   );
 };
