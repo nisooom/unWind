@@ -1,12 +1,14 @@
 // Importing necessary React modules
 "use client";
+import PlayIcon from "@/components/PlayIcon";
 import React, { useState, useEffect } from "react";
+import PauseIcon from "@/components/PauseIcon"
 import { CircularProgressbar } from "react-circular-progressbar";
 // Functional component Timer
 const Timer = ({ time }) => {
   const [timeLeft, setTimeLeft] = useState(time);
   const [totalTime, setTotalTime] = useState(time);
-  const [isRunning, setIsRunning] = useState(true);
+  const [isRunning, setIsRunning] = useState(false);
 
   useEffect(() => {
     let interval = null;
@@ -44,9 +46,11 @@ const Timer = ({ time }) => {
               },
             }}
           />
+
+          
         </div>
 
-        <div className="absolute text-center w-2/3 h-full justify-center items-center rounded-full flex bg-opacity-40 bg-util -z-10">
+        <div className="absolute text-center w-2/3 h-full justify-center items-center rounded-full flex bg-opacity-20 bg-util -z-10">
           <p className="text-2xl text-white z-20">
             {/* time elapsed in m and s*/}
             {Math.floor(timeLeft / 60)}:
@@ -54,10 +58,20 @@ const Timer = ({ time }) => {
           </p>
         </div>
       </div>
-      <button onClick={() => setIsRunning(!isRunning)}>
-        {isRunning ? "Pause" : "Play"}
-      </button>
+      <div className="flex justify-center items-center pt-4">
+        <button onClick={() => setIsRunning(!isRunning)} className="">
+          {isRunning ? <PauseIcon/>:<PlayIcon/>}
+        </button>
+        <button className="pl-4" onClick={() => {
+          setTotalTime(time);
+          setTimeLeft(time);
+          setIsRunning(false);
+        }}>Reset</button>
+      </div>
+      
     </div>
+
+    
   );
 };
 
