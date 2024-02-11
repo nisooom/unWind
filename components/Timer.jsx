@@ -4,6 +4,7 @@ import PlayIcon from "@/components/PlayIcon";
 import React, { useState, useEffect } from "react";
 import PauseIcon from "@/components/PauseIcon"
 import { CircularProgressbar } from "react-circular-progressbar";
+import ResetIcon from "./ResetIcon";
 // Functional component Timer
 const Timer = ({ time }) => {
   const [timeLeft, setTimeLeft] = useState(time);
@@ -64,15 +65,15 @@ const Timer = ({ time }) => {
           </p>
         </div>
       </div>
-      <div className="flex justify-center items-center pt-4">
-        <button onClick={() => setIsRunning(!isRunning)} className="">
+      <div className="flex justify-center items-center p-4 gap-4">
+        <button onClick={() => setIsRunning(!isRunning)} className="p-2 hover:bg-util hover:bg-opacity-20 hover:rounded-full">
           {isRunning ? <PauseIcon/>:<PlayIcon/>}
         </button>
-        <button className="pl-4" onClick={() => {
+        <button className="p-2 hover:bg-util hover:bg-opacity-20 hover:rounded-full" onClick={() => {
           setTotalTime(time);
           setTimeLeft(time);
           setIsRunning(false);
-        }}>Reset</button>
+        }}><ResetIcon/></button>
       </div>
       
     </div>

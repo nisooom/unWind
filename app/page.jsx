@@ -57,7 +57,7 @@ const page = ({ session }) => {
   const sortedPastTasks = [...pastTasks].sort((a, b) => a.checked - b.checked);
 
   return (
-    <div className="justify-center items-center">
+    <div className="justify-center items-center w-full h-full">
       <SessionProvider session={session}></SessionProvider>
       <div className="flex justify-center items-center text-white pt-32">
       <Timer time={time} type="classic" mood="angry" />
@@ -87,10 +87,11 @@ const page = ({ session }) => {
 
     </div>
 
-    <div className="text-text px-4 py-4 justify-center items-center flex-col">
+    <div className="text-text px-4 py-4 justify-center w-full items-center  flex gap-10 min-h-96 pt-20">
       {/* past task */}
-      <div className="text-text text-lg ">Past</div>
-      <div className="flex flex-col gap-3">
+      <div className="flex-col flex min-h-96">
+      <div className="text-text text-lg w-full justify-center items-center flex flex-col">Past</div>
+      <div className="flex flex-col gap-3 w-full justify-center items-center">
         <AnimatePresence>
           {sortedPastTasks.map((task) => (
             <motion.div
@@ -111,9 +112,11 @@ const page = ({ session }) => {
           ))}
         </AnimatePresence>
       </div>
+      </div>
       {/* today's task */}
-      <div className="text-text text-lg font-semibold">Today</div>
-      <div className="flex flex-col gap-3">
+      <div className="flex-col flex min-h-96">
+      <div className="text-text text-lg w-full font-semibold justify-center items-center flex flex-col">Today</div>
+      <div className="flex flex-col gap-3 w-full justify-center items-center ">
         <AnimatePresence>
           {sortedTodaysTasks.map((task) => (
             <motion.div
@@ -134,9 +137,11 @@ const page = ({ session }) => {
           ))}
         </AnimatePresence>
       </div>
+      </div>
       {/* future task */}
-      <div className="text-text text-lg font-semibold">Future</div>
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col  min-h-96">
+      <div className="text-text text-lg w-full font-semibold justify-center items-center flex">Future</div>
+      <div className="flex flex-col gap-3 w-full justify-center items-center ">
         <AnimatePresence>
           {sortedFutureTasks.map((task) => (
             <motion.div
@@ -157,7 +162,7 @@ const page = ({ session }) => {
           ))}
         </AnimatePresence>
       </div>
-
+      </div>
       {/* {JSON.stringify(taskData)} */}
     </div>
 
