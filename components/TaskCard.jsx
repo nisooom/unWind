@@ -21,7 +21,7 @@ const TaskCard = ({ title, id, checked, setTaskData }) => {
   };
 
   return (
-    <div className="w-48 h-10 bg-white bg-opacity-10 rounded-md flex">
+    <div className="w-1/3 h-10 bg-white bg-opacity-10 rounded-md flex">
       <div className="aspect-square h-10 flex justify-center items-center">
         <Checkbox className="" onCheckedChange={handleCheckChange} />
       </div>

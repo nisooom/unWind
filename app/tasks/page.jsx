@@ -25,7 +25,7 @@ const Page = () => {
       title: "Continue Programming course",
       description: "Udemy JavaScript course",
       checked: false,
-      date: "2024-02-13",
+      date: "2024-01-13",
     },
     {
       id: 4,
