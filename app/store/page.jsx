@@ -3,8 +3,8 @@ import React, { useState } from "react";
 
 const Page = () => {
   const [items, setItems] = useState([
-    { id: 1, name: "Item 1", price: 10, img: "/imgs/dummy.jpg" },
-    { id: 2, name: "Item 2", price: 20, img: "/imgs/dummy.jpg" },
+    { id: 1, name: "Zero Hunger", price: 10, img: "/imgs/zero_hunger.png" },
+    { id: 2, name: "Quality Education", price: 20, img: "/imgs/quality_education.png" },
     // Add more items here
   ]);
 
