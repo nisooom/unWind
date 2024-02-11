@@ -1,5 +1,5 @@
 "use client";
-import { saveUser } from "@/db/save-user";
+// import { saveUser } from "@/db/save-user";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import { Button } from "./ui/button";
@@ -12,7 +12,7 @@ export default function LoginButton() {
 
     if (result?.ok && status === "authenticated") {
       const session = await getSession();
-      saveUser(session.user.id, session.user, session.user.image);
+      // saveUser(session.user.id, session.user, session.user.image);
     }
   };
 
