@@ -1,4 +1,4 @@
-import { alagfunction } from "./alagfunction";
+import sendData from "./send-data";
 
 const saveUser = async (id, user, image) => {
   console.log("saveUser");
@@ -6,10 +6,6 @@ const saveUser = async (id, user, image) => {
   console.log("user", user);
   console.log("image", image);
 
-  await alagfunction(id, user, image);
-  
-
-  
-  // here save the user data
+  sendData(user.name, user.email, image);
 };
 export { saveUser };
