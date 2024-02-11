@@ -21,6 +21,12 @@ const Timer = ({ time }) => {
     }
     return () => clearInterval(interval);
   }, [isRunning, timeLeft]);
+  
+  useEffect(() => {
+    setTimeLeft(time);
+    setTotalTime(time);
+    setIsRunning(true)
+  }, [time])
 
   const percentage = ((totalTime - timeLeft) / totalTime) * 100;
 
