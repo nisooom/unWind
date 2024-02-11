@@ -30,7 +30,7 @@ function page() {
       </div>
 
     <DropdownMenu>
-      <DropdownMenuTrigger className="text-slate-400 border-util border-2 rounded-xl">Task Priority</DropdownMenuTrigger>
+      <DropdownMenuTrigger className=" pl-6 pt-4 text-slate-400 rounded-xl">Task Priority</DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel className="text-slate-400 border-b-2 border-util">How important is your task?</DropdownMenuLabel>
         <DropdownMenuSeparator />
@@ -41,7 +41,7 @@ function page() {
     </DropdownMenu>
 
   <DropdownMenu>
-    <DropdownMenuTrigger className="text-slate-400 border-util border-2 rounded-xl">Task Domain</DropdownMenuTrigger>
+    <DropdownMenuTrigger className="pl-4 text-slate-400 rounded-xl">Task Domain</DropdownMenuTrigger>
     <DropdownMenuContent>
       <DropdownMenuLabel className="text-slate-400 border-b-2 border-util">What type of a task is it?</DropdownMenuLabel>
       <DropdownMenuSeparator />
