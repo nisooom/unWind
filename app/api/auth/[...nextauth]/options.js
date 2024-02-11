@@ -1,5 +1,6 @@
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
+import saveUser from "@/db/save-user";
 
 export const options = {
   providers: [
@@ -28,26 +29,21 @@ export const options = {
     }),
   ],
   callbacks: {
-    // async jwt({ token, user }) {
-    //   if (user) {
-    //     const dbUser = await getUserByEmail(user.email);
-    //     if (!dbUser) {
-    //       console.log("Creating new user");
-    //       const user_id = user.name.replace(/\s/g, "_").toLowerCase();
-    //       let image;
-    //       if (user.role === "google-user") {
-    //         image = user.picture;
-    //       } else if (user.role === "github-user") {
-    //         image = user.avatar_url;
-    //       } else {
-    //         image = "https://robohash.org" + user_id;
-    //       }
-    //       //    save user here
-    //     }
-    //     token.role = user.role;
-    //   }
-    //   return token;
-    // },
+    async jwt({ token, user }) {
+      if (user) {
+        const dbUser = await getUserByEmail(user.email);
+        if (!dbUser) {
+          console.log("Creating new user");
+          const user_id = user.name.replace(/\s/g, "_").toLowerCase();
+          let image = user.picture;
+          
+          saveUser(user_id, dbUser, image);
+          //    save user here
+        }
+        token.role = user.role;
+      }
+      return token;
+    },
     async session({ session, token }) {
       if (session?.user) {
         session.user.role = token.role;
