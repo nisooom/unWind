@@ -8,31 +8,31 @@ const Page = () => {
   const [taskData, setTaskData] = useState([
     {
       id: 1,
-      title: "Task 1",
-      description: "This is a description",
+      title: "Math assignment",
+      description: "Complete maths assignment by 8",
       checked: false,
-      date: "2024-02-15",
+      date: "2024-02-11",
     },
     {
       id: 2,
-      title: "Task 2",
-      description: "This is a description",
+      title: "Wash the dishes",
+      description: "Finish backlog of dishes",
       checked: false,
-      date: "2024-02-10",
+      date: "2024-02-11",
     },
     {
       id: 3,
-      title: "Task 3",
-      description: "This is a description",
+      title: "Continue Programming course",
+      description: "Udemy JavaScript course",
       checked: false,
-      date: "2024-02-10",
+      date: "2024-02-13",
     },
     {
       id: 4,
-      title: "Task 4",
-      description: "This is a description",
+      title: "Go for hiking",
+      description: "Get set for the Tally-hills hike coming up",
       checked: false,
-      date: "2024-01-10",
+      date: "2024-03-18",
     },
   ]);
 
@@ -126,7 +126,7 @@ const Page = () => {
         </AnimatePresence>
       </div>
 
-      {JSON.stringify(taskData)}
+      {/* {JSON.stringify(taskData)} */}
     </div>
   );
 };
