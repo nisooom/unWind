@@ -22,7 +22,7 @@ const Timer = ({ time }) => {
   return (
     <div className="text-white flex items-center justify-center h-full">
       <div className="text-white flex items-center justify-center h-full relative">
-        <div className="w-2/3 h-1/3">
+        <div className="w-2/3 h-2/3">
           <CircularProgressbar
             value={percentage}
             text={`${timeLeft}`}
@@ -42,7 +42,8 @@ const Timer = ({ time }) => {
             }}
           />
         </div>
-        <div className="absolute text-center w-full">
+
+        <div className="absolute text-center w-2/3 h-full rounded-full opacity-40 bg-red-400 z">
           <p className="text-2xl">{Math.round(percentage)}%</p>
         </div>
       </div>

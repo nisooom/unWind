@@ -1,6 +1,6 @@
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import saveUser from "@/db/save-user";
+import { saveUser } from "@/db/save-user";
 
 export const options = {
   providers: [
@@ -30,16 +30,10 @@ export const options = {
   ],
   callbacks: {
     async jwt({ token, user }) {
+      console.log("Creating new user");
       if (user) {
-        const dbUser = await getUserByEmail(user.email);
-        if (!dbUser) {
-          console.log("Creating new user");
-          const user_id = user.name.replace(/\s/g, "_").toLowerCase();
-          let image = user.picture;
-          
-          saveUser(user_id, dbUser, image);
-          //    save user here
-        }
+        let image = user.picture;
+        await saveUser(user.id, user, image); // Save the user to the database
         token.role = user.role;
       }
       return token;

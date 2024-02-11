@@ -1,17 +1,8 @@
-import { supabase } from "@/supabase";
-import sendData from "./send-data";
-
-export default async function saveUser(name, email, picture) {
-    const { data, error } = await supabase.from("users").select(
-        'email'
-      ).eq("email", email);
-
-    if (error) throw error;
-    if (data.length == 0){
-        sendData(name, email, picture);
-    }else{
-        return data;
-    }
-    
-
-}
+const saveUser = async (id, user, image) => {
+  console.log("saveUser");
+  console.log("id", id);
+  console.log("user", user);
+  console.log("image", image);
+  // here save the user data
+};
+export { saveUser };

@@ -17,7 +17,7 @@ export default function RootLayout({ children, session }) {
     <html lang="en">
       <body className={inter.className}>
         <div className="flex h-full">
-          <Sidebar />
+          <Sidebar />z
           <SidebarMobile />
           <Backdrop />
           <Coins />
