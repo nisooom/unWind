@@ -24,13 +24,7 @@ const page = ({ session }) => {
       checked: false,
       date: "2024-02-11",
     },
-    {
-      id: 3,
-      title: "Continue Programming",
-      description: "Udemy JavaScript course",
-      checked: false,
-      date: "2024-01-13",
-    },
+    
     {
       id: 4,
       title: "Go for hiking",
@@ -38,6 +32,50 @@ const page = ({ session }) => {
       checked: false,
       date: "2024-03-18",
     },
+
+  
+    {
+      id: 6,
+      title: "Study for upcoming exams",
+      description: "Review notes and practice sample questions for better preparation",
+      checked: false,
+      date: "2024-03-10"
+    },
+    {
+      id: 7,
+      title: "Buy groceries",
+      description: "Stock up on essentials including milk, bread, and fruits",
+      checked: false,
+      date: "2024-02-15"
+    },
+    {
+      id: 8,
+      title: "Meeting with client",
+      description: "Discuss project requirements and deliverables",
+      checked: false,
+      date: "2023-11-20"
+    },
+    {
+      id: 9,
+      title: "Family dinner",
+      description: "Gather with family members for a dinner party",
+      checked: false,
+      date: "2022-09-05"
+    },
+    {
+      id: 10,
+      title: "Attend webinar on AI",
+      description: "Learn about the latest advancements in artificial intelligence",
+      checked: false,
+      date: "2024-07-15"
+    },
+    {
+      id: 11,
+      title: "Visit dentist",
+      description: "Routine dental check-up at 10 AM",
+      checked: false,
+      date: "2023-04-30"
+    }
   ]);
 
   const today = new Date().toISOString().split("T")[0]; // Get today's date in YYYY-MM-DD format
