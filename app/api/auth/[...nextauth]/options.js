@@ -1,4 +1,3 @@
-
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import { saveUser } from "@/db/save-user";
@@ -34,7 +33,7 @@ export const options = {
       console.log("Creating new user");
       if (user) {
         let image = user.picture;
-        await saveUser(user.id, user, image); // Save the user to the database
+        // await saveUser(user.id, user, image); // Save the user to the database
         token.role = user.role;
       }
       return token;
