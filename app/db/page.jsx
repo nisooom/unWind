@@ -4,12 +4,19 @@ import fetchUsers from "@/db/fetch-users";
 import sendData from "@/db/send-data";
 import delData from "@/db/delete-data";
 import updateUserData from "@/db/update-user-data";
+import saveUser from "@/db/save-user";
 
 const page = () => {
   const [data, setData] = useState(null);
   const handleFetch = async () => {
     const res = await fetchUsers();
     setData(res);
+  };
+
+  const [emaildata, setemailData] = useState(null);
+  const handleemail = async () => {
+    const res = await saveUser('egege@erwefg');
+    setemailData(res);
   };
 
   
@@ -34,7 +41,17 @@ const page = () => {
                 await delData();
                 console.log("OMGDATASENT");
         }}>Delete Dummy</button>
+
+        <div className="text-white">
+          <button onClick={handleemail}>Save User</button>
+          
+        <pre>{JSON.stringify(emaildata)}</pre>
+        </div>
+
+
     </div>
+
+
   );
 };
 

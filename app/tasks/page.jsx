@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import TaskCard from "@/components/TaskCard";
 import { AnimatePresence, motion } from "framer-motion";
 
+
 const Page = () => {
   const [taskData, setTaskData] = useState([
     {
@@ -34,6 +35,8 @@ const Page = () => {
       date: "2024-01-10",
     },
   ]);
+
+
 
   const today = new Date().toISOString().split("T")[0]; // Get today's date in YYYY-MM-DD format
 
