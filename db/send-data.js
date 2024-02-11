@@ -1,10 +1,14 @@
 import {supabase} from "@/supabase";
 
-export default async function sendData() {
+export default async function sendData(name, email, picture) {
     console.log("OMGDATASENTFROMHERE");
     const { data, error } = await supabase.from("users").insert(
         [
-            { name: "John", email: "kdahfjh@fdad", coins: 100, exp: 100 }
+            { 
+                "name":name,
+                "email": email,
+                "profile_img": picture
+             }
         ]
     );
     if (error) throw error;
