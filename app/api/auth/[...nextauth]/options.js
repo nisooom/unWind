@@ -1,20 +1,9 @@
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-// import { saveUser } from "@/db/save-user";
+import { getUserByEmail, saveUser } from "@/db/user";
 
 export const options = {
   providers: [
-    // GithubProvider({
-    //   profile(profile) {
-    //     let userRole = "github-user";
-    //     return {
-    //       ...profile,
-    //       role: userRole,
-    //     };
-    //   },
-    //   clientId: process.env.GITHUB_CLIENT_ID,
-    //   clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    // }),
     GoogleProvider({
       profile(profile) {
         let userRole = "google-user";
@@ -28,12 +17,18 @@ export const options = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
+
   callbacks: {
     async jwt({ token, user }) {
-      console.log("Creating new user");
       if (user) {
         let image = user.picture;
-        // await saveUser(user.id, user, image); // Save the user to the database
+        let name = user.name;
+        let email = user.email;
+        let dbUser = await getUserByEmail(email);
+        if (!dbUser) {
+          console.log("Creating new user");
+          await saveUser(name, image, email);
+        }
         token.role = user.role;
       }
       return token;

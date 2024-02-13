@@ -1,57 +1,58 @@
 "use client";
 import { useState, useEffect } from "react";
-import fetchUsers from "@/db/fetch-users";
-import sendData from "@/db/send-data";
-import delData from "@/db/delete-data";
-import updateUserData from "@/db/update-user-data";
-import saveUser from "@/db/save-user";
+import { getUserByEmail } from "@/db/user";
+import { saveTask } from "@/db/task";
+import { tr } from "date-fns/locale";
 
 const page = () => {
-  const [data, setData] = useState(null);
-  const handleFetch = async () => {
-    const res = await fetchUsers();
-    setData(res);
+  const [email, setEmail] = useState("code.tejas@gmail.com");
+  const [data, setData] = useState("");
+  const [task, setTask] = useState({
+    users: "user_id",
+    content: "",
+    task_name: "",
+    status: true,
+    tags: "",
+    due_date: "",
+  });
+
+  const fetchData = async () => {
+    const user = await getUserByEmail(email);
+    setData(user);
+  };
+  const saveData = async () => {
+    await saveTask(
+      task.users,
+      task.content,
+      task.task_name,
+      task.status,
+      task.tags,
+      task.due_date
+    );
   };
 
-  const [emaildata, setemailData] = useState(null);
-  const handleemail = async () => {
-    const res = await saveUser('egege@erwefg');
-    setemailData(res);
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      const user = await getUserByEmail(email);
+      setData(user);
+    };
+    fetchData();
+  }, [email]);
 
-  
+  // useEffect when data is upoates to udpates users from task
+  useEffect(() => {
+    setTask({ ...task, users: data.$id });
+  }, [data]);
+
   return (
     <div className="text-white">
-      <h1>Users These are the Users</h1>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
-      <button onClick={handleFetch}>Fetch Users</button>
-        <button onClick={
-            async () => {
-                await sendData();
-                console.log("OMGDATASENT");
-        }}>Send Dummy</button>
-        <button onClick={
-            async () => {
-                await updateUserData();
-                console.log("OMGDATAUPDATE");
-        }}>Update Data lmao</button>
-
-        <button onClick={
-            async () => {
-                await delData();
-                console.log("OMGDATASENT");
-        }}>Delete Dummy</button>
-
-        <div className="text-white">
-          <button onClick={handleemail}>Save User</button>
-          
-        <pre>{JSON.stringify(emaildata)}</pre>
-        </div>
-
-
+      <h1>Page</h1>
+      <p>Data = {JSON.stringify(data)}</p>
+      {/* button to fetch data */}
+      <button onClick={() => fetchData()}>Fetch Data</button>
+      {/* button to save taks */}
+      <button onClick={() => saveData()}>Save Task</button>
     </div>
-
-
   );
 };
 
