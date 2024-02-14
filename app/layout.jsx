@@ -21,7 +21,7 @@ export default function RootLayout({ children, session }) {
           <SidebarMobile />
           <Backdrop />
           <Coins />
-          <main className="sm:pl-56 pb-24 md:pl-56 md:pb-0 flex bg-black box-border w-full">
+          <main className="sm:pl-56 md:pl-56 md:pb-0 flex bg-black box-border w-full">
             <div className="w-full h-full z-20"> {children}</div>
           </main>
         </div>

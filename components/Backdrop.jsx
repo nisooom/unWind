@@ -2,7 +2,7 @@ import React from "react";
 
 const Backdrop = () => {
   return (
-    <div className="overflow-hidden text-white pl-40 w-full h-full absolute text-9xl">
+    <div className="overflow-hidden text-white sm:pl-40 w-full h-full absolute text-9xl">
       <div className="flex items-center justify-center h-full">
         {/* <h1>Backdrop</h1> */}
         <div className="absolute bottom-0 left-40 w-32 h-32 bg-accent rounded-full opacity-100"></div>

@@ -2,7 +2,7 @@
 "use client";
 import PlayIcon from "@/components/PlayIcon";
 import React, { useState, useEffect } from "react";
-import PauseIcon from "@/components/PauseIcon"
+import PauseIcon from "@/components/PauseIcon";
 import { CircularProgressbar } from "react-circular-progressbar";
 import ResetIcon from "./ResetIcon";
 // Functional component Timer
@@ -22,18 +22,18 @@ const Timer = ({ time }) => {
     }
     return () => clearInterval(interval);
   }, [isRunning, timeLeft]);
-  
+
   useEffect(() => {
     setTimeLeft(time);
     setTotalTime(time);
-    setIsRunning(true)
-  }, [time])
+    setIsRunning(true);
+  }, [time]);
 
   const percentage = ((totalTime - timeLeft) / totalTime) * 100;
 
   return (
-    <div className="text-white flex flex-col items-center justify-center h-full">
-      <div className="text-white flex items-center justify-center h-full relative">
+    <div className="text-white flex flex-col items-center justify-center h-full w-1/3">
+      <div className=" aspect-square text-white flex items-center justify-center h-full relative">
         <div className="w-2/3 h-2/3">
           <CircularProgressbar
             value={percentage}
@@ -53,11 +53,9 @@ const Timer = ({ time }) => {
               },
             }}
           />
-
-          
         </div>
 
-        <div className="absolute text-center w-2/3 h-full justify-center items-center rounded-full flex bg-opacity-20 bg-util -z-10">
+        <div className="absolute text-center w-2/3 h-2/3 justify-center items-center rounded-full flex bg-opacity-20 bg-util -z-10">
           <p className="text-2xl text-white z-20">
             {/* time elapsed in m and s*/}
             {Math.floor(timeLeft / 60)}:
@@ -65,20 +63,25 @@ const Timer = ({ time }) => {
           </p>
         </div>
       </div>
-      <div className="flex justify-center items-center p-4 gap-4">
-        <button onClick={() => setIsRunning(!isRunning)} className="p-2 hover:bg-util hover:bg-opacity-20 hover:rounded-full">
-          {isRunning ? <PauseIcon/>:<PlayIcon/>}
+      <div className="  w-full flex justify-center items-center p-4 gap-4">
+        <button
+          onClick={() => setIsRunning(!isRunning)}
+          className="p-2 hover:bg-util hover:bg-opacity-20 hover:rounded-full"
+        >
+          {isRunning ? <PauseIcon /> : <PlayIcon />}
         </button>
-        <button className="p-2 hover:bg-util hover:bg-opacity-20 hover:rounded-full" onClick={() => {
-          setTotalTime(time);
-          setTimeLeft(time);
-          setIsRunning(false);
-        }}><ResetIcon/></button>
+        <button
+          className="p-2 hover:bg-util hover:bg-opacity-20 hover:rounded-full"
+          onClick={() => {
+            setTotalTime(time);
+            setTimeLeft(time);
+            setIsRunning(false);
+          }}
+        >
+          <ResetIcon />
+        </button>
       </div>
-      
     </div>
-
-    
   );
 };
 

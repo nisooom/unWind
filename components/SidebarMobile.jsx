@@ -20,7 +20,7 @@ import {
 const SidebarMobile = ({ session }) => {
   return (
     <SessionProvider session={session}>
-      <div className="block sm:hidden text-white z-10 absolute w-full h-20 bg-background px-4 py-4 border-util border-opacity-20 border-r-[2px] bottom-0 flex items-center justify-center ">
+      <div className="block sm:hidden text-white z-40 absolute w-full h-20 bg-background px-4 py-4 border-util border-opacity-20 border-r-[2px] bottom-0 flex items-center justify-center ">
         <div className="w-24 h-24 bg-black bg-opacity-80 mb-16 rounded-full flex justify-center items-center">
           <Link
             href="/"
