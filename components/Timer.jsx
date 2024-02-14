@@ -32,7 +32,7 @@ const Timer = ({ time }) => {
   const percentage = ((totalTime - timeLeft) / totalTime) * 100;
 
   return (
-    <div className="text-white flex flex-col items-center justify-center h-full w-1/3">
+    <div className="text-white flex flex-col items-center justify-center h-2/3 md:h-full w-1/3">
       <div className=" aspect-square text-white flex items-center justify-center h-full relative">
         <div className="w-2/3 h-2/3">
           <CircularProgressbar

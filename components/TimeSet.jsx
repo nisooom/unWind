@@ -5,7 +5,7 @@ import { useAnimation } from "framer-motion";
 import { useRef } from "react";
 
 const TimeSet = ({ setTimerData }) => {
-  const [time, setTime] = useState("12:00:00");
+  const [time, setTime] = useState("00:05:00");
   const [dragging, setDragging] = useState(false);
   const [startY, setStartY] = useState(0);
   const [draggedElement, setDraggedElement] = useState(null);

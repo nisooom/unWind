@@ -21,14 +21,14 @@ const page = ({ session }) => {
       title: "Math assignment",
       description: "Complete maths assignment by 8",
       checked: false,
-      date: "2024-02-11",
+      date: "2024-02-14",
     },
     {
       id: 2,
       title: "Wash the dishes",
       description: "Finish backlog of dishes",
       checked: false,
-      date: "2024-02-11",
+      date: "2024-02-14",
     },
 
     {
@@ -36,7 +36,7 @@ const page = ({ session }) => {
       title: "Go for hiking",
       description: "Get set for the Tally-hills hike coming up",
       checked: false,
-      date: "2024-03-18",
+      date: "2024-02-14",
     },
 
     {
@@ -112,7 +112,7 @@ const page = ({ session }) => {
   }, [isMounted]);
 
   useEffect(() => {
-    if (timerData && timerData !== "12:00:00") {
+    if (timerData && timerData !== "00:05:00") {
       // Check if selector has been used
       const [hours, minutes, seconds] = timerData.split(":").map(Number);
       const totalSeconds = hours * 3600 + minutes * 60 + seconds;
@@ -122,7 +122,7 @@ const page = ({ session }) => {
   return (
     <div className="justify-center items-center w-full h-full">
       <SessionProvider session={session}></SessionProvider>
-      <div className="flex justify-center items-center text-white h-1/2 w-full py-4 px-4">
+      <div className="flex flex-col md:flex-row justify-center items-center text-white h-full md:h-1/2 w-full py-10 px-12">
         <Timer
           time={time}
           type="classic"
@@ -131,7 +131,7 @@ const page = ({ session }) => {
           setIsRunning={setIsRunning}
         />
 
-        <div className="w-2/3 h-full flex flex-col justify-center items-center gap-8 px-6 py-4 ">
+        <div className="w-2/3 md:h-1/3 h-full flex flex-col justify-start md:justify-center items-center gap-8 px-6 py-4 ">
           <TimeSet setTimerData={setTimerData} />
           <div className="flex flex-col gap-2 w-full items-center">
             <button
@@ -153,7 +153,38 @@ const page = ({ session }) => {
           </div>
         </div>
       </div>
-      <div className="text-text px-4 py-4 justify-center w-full items-center flex gap-10 min-h-96 pt-20 bg-red-300"></div>
+      <div className="w-full h-1/2 hidden md:flex text-text px-4 py-4 justify-center w-full items-center flex">
+        <div className="w-1/2 h-full ">
+          {" "}
+          <div className="flex-col flex min-h-96">
+            <div className="text-text text-lg w-full font-semibold justify-center items-center flex flex-col px-2 py-4">
+              Today
+            </div>
+            <div className="flex flex-col gap-3 w-full justify-center items-center ">
+              <AnimatePresence>
+                {sortedTodaysTasks.map((task) => (
+                  <motion.div
+                    key={task.id}
+                    layout
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <TaskCard
+                      id={task.id}
+                      title={task.title}
+                      description={task.description}
+                      checked={task.checked}
+                      setTaskData={setTaskData}
+                    />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
+          </div>
+        </div>
+        <div className="w-1/2 h-full bg-green-600"></div>
+      </div>
       {/* <div className="text-text px-4 py-4 justify-center w-full items-center flex gap-10 min-h-96 pt-20">
    
         <div className="flex-col flex min-h-96">
