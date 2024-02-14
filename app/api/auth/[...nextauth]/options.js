@@ -1,6 +1,8 @@
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import { getUserByEmail, saveUser } from "@/db/user";
+import { getToken } from "next-auth/jwt";
+
 
 export const options = {
   providers: [
@@ -19,8 +21,9 @@ export const options = {
   ],
 
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, account, user }) {
       if (user) {
+
         let image = user.picture;
         let name = user.name;
         let email = user.email;
@@ -30,14 +33,39 @@ export const options = {
           await saveUser(name, image, email);
         }
         token.role = user.role;
+        console.log(user, account);
+        token.accessToken = user.accessToken;
       }
-      return token;
+
+      // const userToken = await getToken({ req, secret: process.env.NEXT_AUTH_SECRET });
+      // console.log(userToken);
+
+      return { ...token, ...user, ...account };
     },
-    async session({ session, token }) {
-      if (session?.user) {
-        session.user.role = token.role;
-      }
+    async session({ session, token, user, account }) {
+      // if (session?.user) {
+      //   session.user.role = token.role;
+      // 
+      // const {id_token} = account;
+
+      // const decoded = jwt.verified(id_token, process.env.NEXT_AUTH_SECRET);
+
+      // const userID = decoded.sub;
+      // const userEmail = decoded.email;
+
+      // const authToken = createAuthToken({userID, userEmail});
+
+      // session.user = {
+      //   ...session.user,
+      //   userID,
+      //   userEmail,
+      //   ...(authToken && {authToken}),
+      // };
+
+      session.accessToken = token.accessToken;
+      session.user = token;
       return session;
+
     },
   },
 };

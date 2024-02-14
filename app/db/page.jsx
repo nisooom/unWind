@@ -2,9 +2,21 @@
 import { useState, useEffect } from "react";
 import { getUserByEmail } from "@/db/user";
 import { saveTask } from "@/db/task";
-import { tr } from "date-fns/locale";
+import { useSession } from "next-auth/react";
+
+
 
 const page = () => {
+
+  const { data: session } = useSession();
+  useEffect(() => {
+    if (session) {
+      setEmail(session.user.email);
+      console.log("Session", session);
+    }
+  }, [session]);
+
+
   const [email, setEmail] = useState("code.tejas@gmail.com");
   const [data, setData] = useState("");
   const [task, setTask] = useState({
