@@ -15,6 +15,16 @@ const TimeSet = ({ setTimerData }) => {
     setStartY(e.clientY);
     setDraggedElement(element);
   };
+  const handleTouchStart = (e, element) => {
+    setDragging(true);
+    setStartY(e.touches[0].clientY);
+    setDraggedElement(element);
+  };
+
+  const handleTouchEnd = () => {
+    setDragging(false);
+    setDraggedElement(null);
+  };
 
   const handleMouseUp = () => {
     setDragging(false);
@@ -88,6 +98,33 @@ const TimeSet = ({ setTimerData }) => {
         newMinutes < 10 ? "0" : ""
       }${newMinutes}:${newSeconds < 10 ? "0" : ""}${newSeconds}`
     );
+  };
+
+  const handleTouch = (e, element) => {
+    if (dragging) {
+      const deltaY = startY - e.touches[0].clientY;
+      if (Math.abs(deltaY) >= 10) {
+        const [hours, minutes, seconds] = time.split(":").map(Number);
+        let newHours = hours;
+        let newMinutes = minutes;
+        let newSeconds = seconds;
+        if (element === "hours") {
+          newHours = deltaY > 0 ? (hours + 1) % 24 : (hours - 1 + 24) % 24;
+        } else if (element === "minutes") {
+          newMinutes =
+            deltaY > 0 ? (minutes + 1) % 60 : (minutes - 1 + 60) % 60;
+        } else if (element === "seconds") {
+          newSeconds =
+            deltaY > 0 ? (seconds + 1) % 60 : (seconds - 1 + 60) % 60;
+        }
+        setTime(
+          `${newHours < 10 ? "0" : ""}${newHours}:${
+            newMinutes < 10 ? "0" : ""
+          }${newMinutes}:${newSeconds < 10 ? "0" : ""}${newSeconds}`
+        );
+        setStartY(e.touches[0].clientY);
+      }
+    }
   };
   const [hours, minutes, seconds] = time.split(":");
 
@@ -169,26 +206,26 @@ const TimeSet = ({ setTimerData }) => {
   }, [time]);
 
   return (
-    <div className=" w-full justify-center flex flex-col items-center">
-      <div className="opacity-70 w-1/2 items-center justify-center flex flex-col">
+    <div className="w-full justify-center flex flex-col items-center ">
+      <div className="opacity-70 w-1/2 items-center justify-center flex flex-col sm:flex hidden transition-all">
         <div className="w-2/8 h-11/12 bg-white rounded-md text-2xl items-center justify-center bg-opacity-5 flex font-semibold px-2 py-2 gap-2 flex-row">
-          <div className="aspect-square h-14 bg-white rounded-md text-2xl items-center justify-center bg-opacity-10 flex font-semibold">
+          <div className="aspect-square lg:h-14 h-10 transition-all bg-white rounded-md text-2xl items-center justify-center bg-opacity-10 flex font-semibold">
             {(hours - 1 && hours - 1 < 0 ? 24 : hours - 1)
               .toString()
               .padStart(2, "0")}
           </div>
-          <div className="w-1/8 h-14  rounded-md text-2xl items-center justify-center bg-opacity-10 flex font-semibold">
+          <div className="w-1/8 lg:h-14 h-10 transition-all rounded-md text-2xl items-center justify-center bg-opacity-10 flex font-semibold">
             :
           </div>
-          <div className="w-2/8 aspect-square h-14 bg-white rounded-md text-2xl items-center justify-center bg-opacity-10 flex font-semibold">
+          <div className="w-2/8 aspect-square lg:h-14 h-10 transition-all bg-white rounded-md text-2xl items-center justify-center bg-opacity-10 flex font-semibold">
             {(minutes - 1 && minutes - 1 < 0 ? 59 : minutes - 1)
               .toString()
               .padStart(2, "0")}
           </div>
-          <div className="w-1/8 h-14   rounded-md text-2xl items-center justify-center bg-opacity-10 flex font-semibold">
+          <div className="w-1/8 lg:h-14 h-10 transition-all rounded-md text-2xl items-center justify-center bg-opacity-10 flex font-semibold">
             :
           </div>
-          <div className="w-2/8 aspect-square h-14 bg-white rounded-md text-2xl items-center justify-center bg-opacity-10 flex font-semibold">
+          <div className="w-2/8 aspect-square lg:h-14 h-10 transition-all bg-white rounded-md text-2xl items-center justify-center bg-opacity-10 flex font-semibold">
             {(seconds - 1 && seconds - 1 < 0 ? 59 : seconds - 1)
               .toString()
               .padStart(2, "0")}
@@ -200,10 +237,10 @@ const TimeSet = ({ setTimerData }) => {
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}
       >
-        <div className="w-2/8 h-20 bg-white rounded-md text-2xl items-center justify-center bg-opacity-5 flex font-semibold px-2 py-2 gap-2 flex-row">
+        <div className="w-2/8 lg:h-20 h-16 transition-all bg-white rounded-md text-2xl items-center justify-center bg-opacity-5 flex font-semibold px-2 py-2 gap-2 flex-row">
           <motion.div
             animate={controlsHour}
-            className="aspect-square h-16 bg-white rounded-md text-2xl items-center justify-center bg-opacity-5 flex font-semibold"
+            className="aspect-square lg:h-16 h-12 transition-all bg-white rounded-md text-2xl items-center justify-center bg-opacity-5 flex font-semibold"
             onMouseDown={(e) => handleMouseDown(e, "hours")}
             onWheel={(e) => handleScroll(e, "hours")}
           >
@@ -212,14 +249,14 @@ const TimeSet = ({ setTimerData }) => {
               min="0"
               value={hours}
               onChange={(e) => handleInputChange(e, "hours")}
-              className="flex items-center text-center justify-center w-full h-16 bg-white rounded-md text-2xl items-center justify-center bg-opacity-5 flex font-semibold"
+              className="flex items-center text-center justify-center w-full lg:h-16 h-12 transition-all bg-white rounded-md text-2xl items-center justify-center bg-opacity-5 flex font-semibold"
             />
           </motion.div>
-          <div className="w-1/8 h-16   rounded-md text-2xl items-center justify-center bg-opacity-10 flex font-semibold">
+          <div className="w-1/8 lg:h-16 h-12 transition-all rounded-md text-2xl items-center justify-center bg-opacity-10 flex font-semibold">
             :
           </div>
           <motion.div
-            className="w-2/8 aspect-square h-16 bg-white rounded-md text-2xl items-center justify-center bg-opacity-5 flex font-semibold"
+            className="w-2/8 aspect-square lg:h-16 h-12 transition-all bg-white rounded-md text-2xl items-center justify-center bg-opacity-5 flex font-semibold"
             onMouseDown={(e) => handleMouseDown(e, "minutes")}
             onWheel={(e) => handleScroll(e, "minutes")}
             animate={controlsMinute}
@@ -228,16 +265,16 @@ const TimeSet = ({ setTimerData }) => {
               type="number"
               value={minutes}
               onChange={(e) => handleInputChange(e, "minutes")}
-              className="flex items-center text-center justify-center w-full h-16 bg-white rounded-md text-2xl items-center justify-center bg-opacity-5 flex font-semibold"
+              className="flex items-center text-center justify-center w-full lg:h-16 h-12 transition-all bg-white rounded-md text-2xl items-center justify-center bg-opacity-5 flex font-semibold"
             />
           </motion.div>
-          <div className="w-1/8 h-16  rounded-md text-2xl items-center justify-center bg-opacity-10 flex font-semibold">
+          <div className="w-1/8 lg:h-16 h-12 transition-all rounded-md text-2xl items-center justify-center bg-opacity-10 flex font-semibold">
             :
           </div>
           <motion.div
             value={seconds}
             animate={controlsSecond}
-            className="w-2/8 aspect-square h-16 bg-white rounded-md text-2xl items-center justify-center bg-opacity-5 flex font-semibold"
+            className="w-2/8 aspect-square lg:h-16 h-12 transition-all bg-white rounded-md text-2xl items-center justify-center bg-opacity-5 flex font-semibold"
             onMouseDown={(e) => handleMouseDown(e, "seconds")}
             onWheel={(e) => handleScroll(e, "seconds")}
           >
@@ -245,14 +282,14 @@ const TimeSet = ({ setTimerData }) => {
               type="number"
               value={seconds}
               onChange={(e) => handleInputChange(e, "seconds")}
-              className="flex items-center text-center justify-center w-full h-16 bg-white rounded-md text-2xl items-center justify-center bg-opacity-5 flex font-semibold"
+              className="no-arrows flex items-center text-center justify-center w-full lg:h-16 h-12 transition-all bg-white rounded-md text-2xl items-center justify-center bg-opacity-5 flex font-semibold"
             />
           </motion.div>
         </div>
       </div>
-      <div className="opacity-70 w-1/2 items-center justify-center flex flex-col">
+      <div className="opacity-70 w-1/2 items-center justify-center flex flex-col sm:flex hidden transition-all">
         <div className="w-2/8 h-11/12 bg-white rounded-md text-2xl items-center justify-center bg-opacity-5 flex font-semibold px-2 py-2 gap-2 flex-row">
-          <div className="aspect-square h-14 bg-white rounded-md text-2xl items-center justify-center bg-opacity-10 flex font-semibold">
+          <div className="aspect-square lg:h-14 h-10 bg-white rounded-md text-2xl items-center justify-center bg-opacity-10 flex font-semibold">
             {/* hours{number}-1 */}
             {(Number(hours) + 1 && Number(hours) + 1 < 24
               ? Number(hours) + 1
@@ -261,10 +298,10 @@ const TimeSet = ({ setTimerData }) => {
               .toString()
               .padStart(2, "0")}
           </div>
-          <div className="w-1/8 h-14  rounded-md text-2xl items-center justify-center bg-opacity-10 flex font-semibold">
+          <div className="w-1/8 lg:h-14 h-10  rounded-md text-2xl items-center justify-center bg-opacity-10 flex font-semibold">
             :
           </div>
-          <div className="w-2/8 aspect-square h-14 bg-white rounded-md text-2xl items-center justify-center bg-opacity-10 flex font-semibold">
+          <div className="w-2/8 aspect-square lg:h-14 h-10 bg-white rounded-md text-2xl items-center justify-center bg-opacity-10 flex font-semibold">
             {(Number(minutes) + 1 && Number(minutes) + 1 < 60
               ? Number(minutes) + 1
               : 0
@@ -272,10 +309,10 @@ const TimeSet = ({ setTimerData }) => {
               .toString()
               .padStart(2, "0")}
           </div>
-          <div className="w-1/8 h-14  rounded-md text-2xl items-center justify-center bg-opacity-10 flex font-semibold">
+          <div className="w-1/8 lg:h-14 h-10 rounded-md text-2xl items-center justify-center bg-opacity-10 flex font-semibold">
             :
           </div>
-          <div className="w-2/8 aspect-square h-14 bg-white rounded-md text-2xl items-center justify-center bg-opacity-10 flex font-semibold">
+          <div className="w-2/8 aspect-square lg:h-14 h-10 bg-white rounded-md text-2xl items-center justify-center bg-opacity-10 flex font-semibold">
             {(Number(seconds) + 1 < 60 ? Number(seconds) + 1 : 0)
               .toString()
               .padStart(2, "0")}

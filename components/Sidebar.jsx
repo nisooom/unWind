@@ -12,7 +12,7 @@ import LoginButton from "@/components/login-btn";
 const Sidebar = ({ session }) => {
   return (
     <SessionProvider session={session}>
-      <div className="sm:block hidden text-white z-10 absolute w-56 h-full bg-background px-4 py-4 border-util border-opacity-20 border-r-[2px]">
+      <div className="sm:block hidden text-white z-10 absolute w-56 h-full bg-background px-4 py-4 border-util border-opacity-20 border-r-[2px] overflow-y-auto">
         <Link
           className="home font-semibold flex gap-2 items-center text-xl text-text"
           href="/"

@@ -104,10 +104,11 @@ const Page = () => {
   const sortedPastTasks = [...pastTasks].sort((a, b) => a.checked - b.checked);
 
   return (
-    <div className="text-text px-4 py-10">
+    <div className="text-text px-4 py-10 flex w-full h-full gap-2 overflow-auto">
       {/* past task */}
-      <div className="text-text text-lg font-semibold">Past</div>
-      <div className="flex flex-col gap-3">
+
+      <div className="flex flex-col gap-3 w-1/3 h-full min-w-64">
+        <div className="text-text text-lg font-semibold">Past</div>
         <AnimatePresence>
           {sortedPastTasks.map((task) => (
             <motion.div
@@ -129,8 +130,9 @@ const Page = () => {
         </AnimatePresence>
       </div>
       {/* today's task */}
-      <div className="text-text text-lg font-semibold">Today</div>
-      <div className="flex flex-col gap-3">
+
+      <div className="flex flex-col gap-3 w-1/3 h-full min-w-64">
+        <div className="text-text text-lg font-semibold">Today</div>
         <AnimatePresence>
           {sortedTodaysTasks.map((task) => (
             <motion.div
@@ -152,8 +154,10 @@ const Page = () => {
         </AnimatePresence>
       </div>
       {/* future task */}
-      <div className="text-text text-lg font-semibold">Future</div>
-      <div className="flex flex-col gap-3">
+
+      <div className="flex flex-col gap-3 w-1/3 h-full min-w-64">
+        {" "}
+        <div className="text-text text-lg font-semibold">Future</div>
         <AnimatePresence>
           {sortedFutureTasks.map((task) => (
             <motion.div
