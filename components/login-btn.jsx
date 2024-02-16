@@ -3,6 +3,8 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import { Button } from "./ui/button";
+import Exit from "./logos/Exit";
+import Power from "./logos/Power";
 
 export default function LoginButton() {
   const { data: session, status } = useSession();
@@ -20,10 +22,11 @@ export default function LoginButton() {
     return (
       <>
         <Button
-          className="mt-2 hover:bg-red-400 hover:bg-opacity-10 border-util hover:border-red-400 hover:border-opacity-40 border-[1px] border-opacity-30 text-white font-bold py-2 px-4 rounded transition-all w-full"
+          className="hover:bg-red-400 hover:bg-opacity-10 border-util border-0 sm:border-[1px] hover:border-red-400 hover:border-opacity-40  border-opacity-30 text-white font-bold py-2 px-2 rounded transition-all w-20 text-xs sm:text-sm w-full gap-2"
           onClick={() => signOut()}
         >
-          Sign out
+          <Exit className="" />
+          <span className="hidden sm:flex">Sign out</span>
         </Button>
       </>
     );
@@ -34,10 +37,11 @@ export default function LoginButton() {
       {Object.values(options.providers).map((provider) => (
         <div key={provider.id}>
           <Button
-            className="mt-2 hover:bg-util hover:bg-opacity-10 border-util border-[1px] border-opacity-30 text-white font-bold py-2 px-4 rounded transition-all w-full"
+            className="hover:bg-util hover:bg-opacity-10  border-util border-0 sm:border-[1px] border-opacity-30 text-white font-bold rounded transition-all flex gap-2 w-full justify-center"
             onClick={() => handleSignIn(provider.id)}
           >
-            Sign in
+            <Power className="" />
+            <span className="hidden sm:flex">Sign in</span>
           </Button>
         </div>
       ))}
