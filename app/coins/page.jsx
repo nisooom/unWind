@@ -2,10 +2,11 @@
 import React from "react";
 import { useCoins } from "../hooks/coins";
 import { Button } from "@/components/ui/button";
+import { CoinsContext } from "../context/coins";
 
 const page = () => {
-  const { getCoins, addCoins, removeCoins, coins } = useCoins();
-
+  const { getCoins, addCoins, removeCoins } = useCoins();
+  const { coins, setCoins } = React.useContext(CoinsContext);
   return (
     <div className="text-text flex flex-col items-center justify-center space-y-4 py-8">
       {/* button to add subtract and get coins */}

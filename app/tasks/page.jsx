@@ -104,7 +104,7 @@ const Page = () => {
   const sortedPastTasks = [...pastTasks].sort((a, b) => a.checked - b.checked);
 
   return (
-    <div className="text-text px-4 py-10 flex w-full h-full gap-2 overflow-auto">
+    <div className="text-text px-4 py-16 flex w-full h-full gap-2 overflow-auto">
       {/* past task */}
 
       <div className="flex flex-col gap-3 w-1/3 h-full min-w-64">

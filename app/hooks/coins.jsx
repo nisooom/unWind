@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext } from "react";
+import { CoinsContext } from "../context/coins";
 
 export function useCoins() {
-  const [coins, setCoins] = useState(100);
+  const { coins, setCoins } = useContext(CoinsContext);
 
   function getCoins() {
     return coins;
@@ -15,5 +16,5 @@ export function useCoins() {
     setCoins(coins - coinsToBeRemoved);
   }
 
-  return { coins, getCoins, addCoins, removeCoins };
+  return { getCoins, addCoins, removeCoins };
 }

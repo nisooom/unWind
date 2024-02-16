@@ -1,32 +1,66 @@
 // Importing necessary React modules
 "use client";
+import { useCoins } from "@/app/hooks/coins";
 import PlayIcon from "@/components/PlayIcon";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import PauseIcon from "@/components/PauseIcon";
 import { CircularProgressbar } from "react-circular-progressbar";
 import ResetIcon from "./ResetIcon";
+import { set } from "date-fns";
+
 // Functional component Timer
 const Timer = ({ time }) => {
+  const { addCoins } = useCoins();
   const [timeLeft, setTimeLeft] = useState(time);
   const [totalTime, setTotalTime] = useState(time);
   const [isRunning, setIsRunning] = useState(false);
+  const [hasCompleted, setHasCompleted] = useState(() => {
+    // Get hasCompleted from localStorage
+    const saved = localStorage.getItem("hasCompleted");
+    const initialValue = JSON.parse(saved);
+    return initialValue || false;
+  });
+
+  const onTimerComplete = useCallback(() => {
+    if (hasCompleted) {
+      return;
+    }
+    let coins = Math.round(totalTime / 20); // Calculate coins based on session time
+    coins = Math.round(coins / 5) * 5; // Round to nearest 5
+    setTimeout(() => addCoins(10), 0); // Delay state update
+    console.log("Timer completed", coins);
+    setHasCompleted(true); // Set hasCompleted to true
+    setTimeLeft(time); // Reset timeLeft
+    setTotalTime(time); // Reset totalTime
+    setIsRunning(false); // Stop the timer
+  }, [hasCompleted, time]);
 
   useEffect(() => {
     let interval = null;
     if (isRunning) {
       interval = setInterval(() => {
-        setTimeLeft((prevTime) => (prevTime > 0 ? prevTime - 1 : 0));
+        setTimeLeft((prevTime) => {
+          if (typeof prevTime === "number" && prevTime > 0) {
+            return prevTime - 1;
+          } else {
+            onTimerComplete();
+            return 0; // return 0 instead of NaN
+          }
+        });
       }, 1000);
     } else if (!isRunning && timeLeft !== 0) {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
-  }, [isRunning, timeLeft]);
+  }, [isRunning, timeLeft, onTimerComplete]); // remove hasCompleted from dependencies
 
   useEffect(() => {
-    setTimeLeft(time);
-    setTotalTime(time);
-    setIsRunning(true);
+    if (typeof time === "number") {
+      setTimeLeft(time);
+      setTotalTime(time);
+      setIsRunning(false);
+      setHasCompleted(false); // Reset hasCompleted to false
+    }
   }, [time]);
 
   const percentage = ((totalTime - timeLeft) / totalTime) * 100;
@@ -65,7 +99,12 @@ const Timer = ({ time }) => {
       </div>
       <div className="  w-full flex justify-center items-center p-4 gap-4">
         <button
-          onClick={() => setIsRunning(!isRunning)}
+          onClick={() => {
+            setIsRunning(!isRunning);
+            if (!isRunning) {
+              setHasCompleted(false);
+            }
+          }}
           className="p-2 hover:bg-util hover:bg-opacity-20 hover:rounded-full"
         >
           {isRunning ? <PauseIcon /> : <PlayIcon />}
@@ -76,6 +115,7 @@ const Timer = ({ time }) => {
             setTotalTime(time);
             setTimeLeft(time);
             setIsRunning(false);
+            setHasCompleted(false);
           }}
         >
           <ResetIcon />

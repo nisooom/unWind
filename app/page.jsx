@@ -6,6 +6,7 @@ import TimeSet from "@/components/TimeSet";
 
 import TaskCard from "@/components/TaskCard";
 import { AnimatePresence, motion } from "framer-motion";
+import Coins from "@/components/Coins";
 
 const page = () => {
   const [time, setTime] = useState(0);
@@ -104,7 +105,7 @@ const page = () => {
 
   useEffect(() => {
     if (isMounted) {
-      setTime(0);
+      setTime(300);
     }
   }, [isMounted]);
 
@@ -208,6 +209,7 @@ const page = () => {
           </div>
         </div>
       </div>
+      {/* <Coins */}
     </div>
   );
 };

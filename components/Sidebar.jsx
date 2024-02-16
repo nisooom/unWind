@@ -5,6 +5,7 @@ import Link from "next/link";
 import Tick from "./logos/Tick";
 import Calendar from "./logos/Calendar";
 import Store from "./logos/Store";
+
 import ProfileDialog from "./ProfileDialog";
 import { SessionProvider } from "next-auth/react";
 import LoginButton from "@/components/login-btn";
@@ -32,14 +33,14 @@ const Sidebar = ({ session }) => {
             </span>
           </Link>
           <Link
-          href="/hamza"
-          className="round-fill w-full bg-transparent px-2 py-2 rounded-lg hover:bg-util hover:bg-opacity-10 transition-all duration-300 ease-in-out"
-        >
-          <span className="flex gap-2 items-center text-text text-lg hover:fill-red-500">
-            <Calendar className="" />
-            Calendar
-          </span>
-        </Link>
+            href="/hamza"
+            className="round-fill w-full bg-transparent px-2 py-2 rounded-lg hover:bg-util hover:bg-opacity-10 transition-all duration-300 ease-in-out"
+          >
+            <span className="flex gap-2 items-center text-text text-lg hover:fill-red-500">
+              <Calendar className="" />
+              Calendar
+            </span>
+          </Link>
           <Link
             href="/store"
             className="round w-full bg-transparent px-2 py-2 rounded-lg hover:bg-util hover:bg-opacity-10 transition-all duration-300 ease-in-out"
