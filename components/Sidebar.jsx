@@ -31,15 +31,15 @@ const Sidebar = ({ session }) => {
               Task List
             </span>
           </Link>
-          {/* <Link
-          href="/calendar"
+          <Link
+          href="/hamza"
           className="round-fill w-full bg-transparent px-2 py-2 rounded-lg hover:bg-util hover:bg-opacity-10 transition-all duration-300 ease-in-out"
         >
           <span className="flex gap-2 items-center text-text text-lg hover:fill-red-500">
             <Calendar className="" />
             Calendar
           </span>
-        </Link> */}
+        </Link>
           <Link
             href="/store"
             className="round w-full bg-transparent px-2 py-2 rounded-lg hover:bg-util hover:bg-opacity-10 transition-all duration-300 ease-in-out"
