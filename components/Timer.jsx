@@ -6,7 +6,6 @@ import React, { useState, useEffect, useCallback } from "react";
 import PauseIcon from "@/components/PauseIcon";
 import { CircularProgressbar } from "react-circular-progressbar";
 import ResetIcon from "./ResetIcon";
-import { set } from "date-fns";
 
 // Functional component Timer
 const Timer = ({ time }) => {
