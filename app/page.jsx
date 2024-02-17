@@ -6,7 +6,6 @@ import TimeSet from "@/components/TimeSet";
 
 import TaskCard from "@/components/TaskCard";
 import { AnimatePresence, motion } from "framer-motion";
-import Coins from "@/components/Coins";
 
 const page = () => {
   const [time, setTime] = useState(0);

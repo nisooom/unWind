@@ -27,10 +27,13 @@ const Timer = ({ time }) => {
   const [totalTime, setTotalTime] = useState(time);
   const [isRunning, setIsRunning] = useState(false);
   const [hasCompleted, setHasCompleted] = useState(() => {
-    // Get hasCompleted from localStorage
-    const saved = localStorage.getItem("hasCompleted");
-    const initialValue = JSON.parse(saved);
-    return initialValue || false;
+    if (typeof window !== "undefined") {
+      // Get hasCompleted from localStorage
+      const saved = window.localStorage.getItem("hasCompleted");
+      const initialValue = JSON.parse(saved);
+      return initialValue || false;
+    }
+    return false;
   });
 
   const onTimerComplete = useCallback(() => {

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Inter } from "next/font/google";
 import Sidebar from "@/components/Sidebar";
 import SidebarMobile from "@/components/SidebarMobile";
@@ -10,15 +10,6 @@ import { MoodContext } from "./context/mood";
 import Coins from "@/components/Coins";
 import AuthProvider from "@/components/AuthProvider";
 import Mood from "@/components/Mood";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,7 +18,7 @@ const inter = Inter({ subsets: ["latin"] });
 //   description: "Unwind App",
 // };
 
-export default function RootLayout({ children, session }) {
+export default function RootLayout({ children }) {
   const [coins, setCoins] = useState(100);
   const [mood, setMood] = useState("default");
 
