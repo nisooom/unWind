@@ -11,6 +11,7 @@ body,
   border-radius: 0.25rem;
   transition: 0.3s ease-in-out;
 }
+
 .round:hover {
   path {
     stroke: #86e8fb;
@@ -27,11 +28,223 @@ body,
     fill: #86e8fb;
     transition: 0.3s ease-in-out;
   }
+  svg {
+    fill: #86e8fb;
+    transition: 0.3s ease-in-out;
+  }
   g {
     fill: #86e8fb;
     transition: 0.3s ease-in-out;
   }
 }
+/* Default mood */
+.round-default:hover {
+  path {
+    stroke: #86e8fb;
+    transition: 0.3s ease-in-out;
+  }
+  g {
+    fill: #86e8fb;
+    transition: 0.01s ease-in-out;
+  }
+}
+
+.round-fill-default:hover {
+  path {
+    fill: #86e8fb;
+    transition: 0.3s ease-in-out;
+  }
+  svg {
+    fill: #86e8fb;
+    transition: 0.3s ease-in-out;
+  }
+  g {
+    fill: #86e8fb;
+    transition: 0.01s ease-in-out;
+  }
+}
+
+/* Sorrow mood */
+.round-sorrow:hover {
+  path {
+    stroke: #185abe;
+    transition: 0.3s ease-in-out;
+  }
+  g {
+    fill: #185abe;
+    transition: 0.01s ease-in-out;
+  }
+}
+
+.round-fill-sorrow:hover {
+  path {
+    fill: #185abe;
+    transition: 0.3s ease-in-out;
+  }
+  svg {
+    fill: #185abe;
+    transition: 0.3s ease-in-out;
+  }
+  g {
+    fill: #185abe;
+    transition: 0.01s ease-in-out;
+  }
+}
+
+/* Grateful mood */
+.round-grateful:hover {
+  path {
+    stroke: #ff2674;
+    transition: 0.3s ease-in-out;
+  }
+  g {
+    fill: #ff2674;
+    transition: 0.01s ease-in-out;
+  }
+}
+
+.round-fill-grateful:hover {
+  path {
+    fill: #ff2674;
+    transition: 0.3s ease-in-out;
+  }
+  svg {
+    fill: #ff2674;
+    transition: 0.3s ease-in-out;
+  }
+  g {
+    fill: #ff2674;
+    transition: 0.01s ease-in-out;
+  }
+}
+/*     jealous: "#019701",
+    anxious: "#654597",
+    neutral: "#10992E",
+    happy: "#E75707",
+    anger: "#FF003D", */
+.round-jealous:hover {
+  path {
+    stroke: #019701;
+    transition: 0.3s ease-in-out;
+  }
+  g {
+    fill: #019701;
+    transition: 0.01s ease-in-out;
+  }
+}
+.round-fill-jealous:hover {
+  path {
+    fill: #019701;
+    transition: 0.3s ease-in-out;
+  }
+  svg {
+    fill: #019701;
+    transition: 0.3s ease-in-out;
+  }
+  g {
+    fill: #019701;
+    transition: 0.01s ease-in-out;
+  }
+}
+.round-anxious:hover {
+  path {
+    stroke: #654597;
+    transition: 0.3s ease-in-out;
+  }
+  g {
+    fill: #654597;
+    transition: 0.01s ease-in-out;
+  }
+}
+.round-fill-anxious:hover {
+  path {
+    fill: #654597;
+    transition: 0.3s ease-in-out;
+  }
+  svg {
+    fill: #654597;
+    transition: 0.3s ease-in-out;
+  }
+  g {
+    fill: #654597;
+    transition: 0.01s ease-in-out;
+  }
+}
+.round-neutral:hover {
+  path {
+    stroke: #10992e;
+    transition: 0.3s ease-in-out;
+  }
+  g {
+    fill: #10992e;
+    transition: 0.01s ease-in-out;
+  }
+}
+.round-fill-neutral:hover {
+  path {
+    fill: #10992e;
+    transition: 0.3s ease-in-out;
+  }
+  svg {
+    fill: #10992e;
+    transition: 0.3s ease-in-out;
+  }
+  g {
+    fill: #10992e;
+    transition: 0.01s ease-in-out;
+  }
+}
+.round-happy:hover {
+  path {
+    stroke: #e75707;
+    transition: 0.3s ease-in-out;
+  }
+  g {
+    fill: #e75707;
+    transition: 0.01s ease-in-out;
+  }
+}
+.round-fill-happy:hover {
+  path {
+    fill: #e75707;
+    transition: 0.3s ease-in-out;
+  }
+  svg {
+    fill: #e75707;
+    transition: 0.3s ease-in-out;
+  }
+  g {
+    fill: #e75707;
+    transition: 0.01s ease-in-out;
+  }
+}
+.round-anger:hover {
+  path {
+    stroke: #ff003d;
+    transition: 0.3s ease-in-out;
+  }
+  g {
+    fill: #ff003d;
+    transition: 0.01s ease-in-out;
+  }
+}
+.round-fill-anger:hover {
+  path {
+    fill: #ff003d;
+    transition: 0.3s ease-in-out;
+  }
+  svg {
+    fill: #ff003d;
+    transition: 0.3s ease-in-out;
+  }
+  g {
+    fill: #ff003d;
+    transition: 0.01s ease-in-out;
+  }
+}
+
+/* Continue for the rest of the moods... */
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -40,4 +253,9 @@ input[type="number"]::-webkit-outer-spin-button {
 
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+.colorful-div {
+  transition: background-color 1s ease;
+  background-color: var(--color);
 }

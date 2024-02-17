@@ -9,8 +9,22 @@ import Store from "./logos/Store";
 import ProfileDialog from "./ProfileDialog";
 import { SessionProvider } from "next-auth/react";
 import LoginButton from "@/components/login-btn";
+import { MoodContext } from "@/app/context/mood";
 
 const Sidebar = ({ session }) => {
+  const { mood, setMood } = React.useContext(MoodContext);
+
+  const moodClasses = {
+    default: "hover:bg-util",
+    sorrow: "hover:bg-sorrow_primary",
+    grateful: "hover:bg-grateful_primary",
+    jealous: "hover:bg-jealous_primary",
+    anxious: "hover:bg-anxious_primary",
+    neutral: "hover:bg-neutral_primary",
+    happy: "hover:bg-happy_primary",
+    anger: "hover:bg-anger_primary",
+  };
+
   return (
     <SessionProvider session={session}>
       <div className="sm:block hidden text-white z-10 absolute w-56 h-full bg-background px-4 py-4 border-util border-opacity-20 border-r-[2px] overflow-y-auto">
@@ -25,7 +39,7 @@ const Sidebar = ({ session }) => {
         <div className="flex flex-col gap-3 mt-8">
           <Link
             href="/tasks"
-            className="round w-full bg-transparent px-2 py-2 rounded-lg hover:bg-util hover:bg-opacity-10 transition-all duration-300 ease-in-out"
+            className={`round-${mood} w-full px-2 py-2 rounded-lg ${moodClasses[mood]} hover:bg-opacity-10 transition-all duration-300 ease-in-out`}
           >
             <span className="flex gap-2 items-center text-text text-lg hover:fill-red-500">
               <Tick className="" />
@@ -33,8 +47,8 @@ const Sidebar = ({ session }) => {
             </span>
           </Link>
           <Link
-            href="/hamza"
-            className="round-fill w-full bg-transparent px-2 py-2 rounded-lg hover:bg-util hover:bg-opacity-10 transition-all duration-300 ease-in-out"
+            href="/calendar"
+            className={`round-fill-${mood} w-full px-2 py-2 rounded-lg ${moodClasses[mood]} hover:bg-opacity-10 transition-all duration-300 ease-in-out`}
           >
             <span className="flex gap-2 items-center text-text text-lg hover:fill-red-500">
               <Calendar className="" />
@@ -43,14 +57,14 @@ const Sidebar = ({ session }) => {
           </Link>
           <Link
             href="/store"
-            className="round w-full bg-transparent px-2 py-2 rounded-lg hover:bg-util hover:bg-opacity-10 transition-all duration-300 ease-in-out"
+            className={`round-${mood} w-full px-2 py-2 rounded-lg ${moodClasses[mood]} hover:bg-opacity-10 transition-all duration-300 ease-in-out`}
           >
             <span className="flex gap-2 items-center text-text text-lg hover:fill-red-500">
               <Store className="" />
               Store
             </span>
           </Link>
-          <ProfileDialog />
+          <ProfileDialog color={moodClasses[mood]} mood={mood} />
           {/* fix login button to bottom */}
           <LoginButton />
         </div>

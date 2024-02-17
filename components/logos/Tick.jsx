@@ -15,6 +15,7 @@ function Tick() {
         strokeLinejoin="round"
         strokeWidth="3"
         d="M10.5 15l3.5 3.5 6-6m8 2.5a13 13 0 11-26 0 13 13 0 0126 0z"
+        // stroke hover color
       ></path>
     </svg>
   );

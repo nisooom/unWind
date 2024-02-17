@@ -1,14 +1,27 @@
 // Importing necessary React modules
 "use client";
 import { useCoins } from "@/app/hooks/coins";
+import { useContext } from "react";
 import PlayIcon from "@/components/PlayIcon";
 import React, { useState, useEffect, useCallback } from "react";
 import PauseIcon from "@/components/PauseIcon";
 import { CircularProgressbar } from "react-circular-progressbar";
 import ResetIcon from "./ResetIcon";
+import { MoodContext } from "@/app/context/mood";
 
 // Functional component Timer
 const Timer = ({ time }) => {
+  const { mood, setMood } = useContext(MoodContext);
+  const colors = {
+    default: "#86e8fb",
+    sorrow: "#185ABE",
+    grateful: "#FF2674",
+    jealous: "#019701",
+    anxious: "#654597",
+    neutral: "#10992E",
+    happy: "#E75707",
+    anger: "#FF003D",
+  };
   const { addCoins } = useCoins();
   const [timeLeft, setTimeLeft] = useState(time);
   const [totalTime, setTotalTime] = useState(time);
@@ -77,7 +90,7 @@ const Timer = ({ time }) => {
                 height: "100%",
               },
               path: {
-                stroke: "#86e8fb",
+                stroke: colors[mood] || colors.default, // Use the color corresponding to the current mood, or the default color if the mood is not defined
                 strokeLinecap: "round",
                 transition: "stroke-dashoffset 0.5s ease 0s",
               },
