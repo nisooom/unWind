@@ -28,7 +28,7 @@ function TaskForm() {
     useEffect(() => {
       if (session) {
         setEmail(session.user.email);
-        console.log("Email", email);
+        // console.log("Email", email);
         fetchData(email);
       }
     }, [session, isMounted]);
@@ -36,24 +36,24 @@ function TaskForm() {
 
   async function fetchData(email){
     const user = await getUserByEmail(email);
-    console.log("User", user);
+    // console.log("User", user);
     setUuid(user.$id);
 
   }
   useEffect(() => {
-    console.log(`Task Name updated: ${taskName}`);
+    // console.log(`Task Name updated: ${taskName}`);
   }, [taskName]);
 
   useEffect(() => {
-    console.log(`Description updated: ${description}`);
+    // console.log(`Description updated: ${description}`);
   }, [description]);
 
   useEffect(() => {
-    console.log(`Due Date updated: ${dueDate}`);
+    // console.log(`Due Date updated: ${dueDate}`);
   }, [dueDate]);
 
   useEffect(() => {
-    console.log(`Tags updated: ${tags}`);
+    // console.log(`Tags updated: ${tags}`);
   }, [tags]);
 
 
@@ -73,16 +73,16 @@ function TaskForm() {
       <div className="text-white">
         <h1>Add a new task</h1>
         <div className="text-black">
-        <input type="text" placeholder="Task Name" value={taskName} onChange={e => setTaskName(e.target.value)} />
-        <input type="text" placeholder="Description" value={description} onChange={e => setDescription(e.target.value)} />
-        <input type="date" value={dueDate} onChange={e => setDueDate(e.target.value)} />
-        <select value={tags} onChange={e => setTags(e.target.value)}>
-          {tagOptions.map(tag => (
-            <option key={tag} value={tag}>
-              {tag}
-            </option>
-          ))}
-        </select>
+          <input type="text" placeholder="Task Name" value={taskName} onChange={e => setTaskName(e.target.value)} />
+          <input type="text" placeholder="Description" value={description} onChange={e => setDescription(e.target.value)} />
+          <input type="date" value={dueDate} onChange={e => setDueDate(e.target.value)} />
+          <select value={tags} onChange={e => setTags(e.target.value)}>
+            {tagOptions.map(tag => (
+              <option key={tag} value={tag}>
+                {tag}
+              </option>
+            ))}
+          </select>
         </div>
         <button onClick={addTask}>Save</button>
       </div>
