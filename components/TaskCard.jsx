@@ -1,34 +1,42 @@
-// TaskCard.jsx
-import React from "react";
+"use client";
+import { useState, useEffect } from "react";
+
 import { Checkbox } from "./ui/checkbox";
 
 const TaskCard = ({ title, id, checked, setTaskData }) => {
-  const handleCheckChange = (newChecked) => {
-    console.log("newChecked", newChecked);
-    console.log("id", id);
+  const [isChecked, setIsChecked] = useState(checked);
+  useEffect(() => {
+    setIsChecked(checked);
+    handleCheckChange(checked);
+  }, [checked]);
+  const updateTask = (id, checked) => {
     setTaskData((prev) => {
-      const newTaskData = prev.map((task) => {
-        if (task.id === id) {
-          return {
-            ...task,
-            checked: newChecked,
-          };
+      return prev.map((task) => {
+        if (task.$id === id) {
+          return { ...task, status: checked };
         }
         return task;
       });
-      return newTaskData;
     });
+  };
+  const handleCheckChange = (checked) => {
+    setIsChecked(checked);
+    updateTask(id, checked);
   };
 
   return (
     <div className="min-w-48 w-full text-wrap px-2 py-2 bg-white bg-opacity-10 rounded-md flex">
       <div className="aspect-square flex justify-center items-start py-1">
-        <Checkbox className="" onCheckedChange={handleCheckChange} />
+        <Checkbox
+          className=""
+          checked={isChecked}
+          onCheckedChange={handleCheckChange}
+        />
       </div>
 
       <span
         className={`text-white h-full flex justify-center items-center px-2 ${
-          checked ? "line-through" : ""
+          isChecked ? "line-through" : ""
         }`}
       >
         {title}

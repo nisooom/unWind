@@ -95,8 +95,6 @@ const Page = () => {
   }, [session]);
 
   const getTasks = async () => {
-    // setTaskData(getUserTasks(email));
-    // convert to array and set state
     setTaskData(await getUserTasks(email));
     console.log("Task Data", await getUserTasks(email));
   };
@@ -108,9 +106,15 @@ const Page = () => {
 
   // Filter tasks into separate arrays
 
-  const todaysTasks = taskData.filter((task) => task.due_date === today);
-  const futureTasks = taskData.filter((task) => task.due_date > today);
-  const pastTasks = taskData.filter((task) => task.due_date < today);
+  const todaysTasks = taskData.filter(
+    (task) => task.due_date?.split("T")[0] === today
+  );
+  const futureTasks = taskData.filter(
+    (task) => task.due_date?.split("T")[0] > today
+  );
+  const pastTasks = taskData.filter(
+    (task) => task.due_date?.split("T")[0] < today
+  );
 
   // Sort each category array
   const sortedTodaysTasks = [...todaysTasks].sort(
@@ -124,7 +128,7 @@ const Page = () => {
   return (
     <div className="text-text px-4 py-16 flex w-full h-full gap-2 overflow-auto">
       {/* past task */}
-      {JSON.stringify(taskData)}
+      {/* {JSON.stringify(taskData, null, 2)} */}
       <div className="flex flex-col gap-3 w-1/3 h-full min-w-64">
         <div className="text-text text-lg font-semibold">Past</div>
         <AnimatePresence>
@@ -171,30 +175,28 @@ const Page = () => {
         </AnimatePresence>
       </div>
       {/* future task */}
-      {/* 
       <div className="flex flex-col gap-3 w-1/3 h-full min-w-64">
-        {" "}
         <div className="text-text text-lg font-semibold">Future</div>
         <AnimatePresence>
           {sortedFutureTasks.map((task) => (
             <motion.div
-              key={task.id}
+              key={task.$id}
               layout
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
               <TaskCard
-                id={task.id}
-                title={task.title}
-                description={task.description}
-                checked={task.checked}
+                id={task.$id}
+                title={task.task_name}
+                description={task.content}
+                checked={task.status}
                 setTaskData={setTaskData}
               />
             </motion.div>
           ))}
         </AnimatePresence>
-      </div> */}
+      </div>
 
       {/* {JSON.stringify(taskData)} */}
     </div>
