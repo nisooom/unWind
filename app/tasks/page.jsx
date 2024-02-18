@@ -1,7 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TaskCard from "@/components/TaskCard";
 import { AnimatePresence, motion } from "framer-motion";
+import { getUserTasks } from "@/db/getTasks";
+import { useSession } from "next-auth/react";
+
 
 const Page = () => {
   const [taskData, setTaskData] = useState([
@@ -10,37 +13,24 @@ const Page = () => {
       title: "Math assignment",
       description: "Complete maths assignment by 8",
       checked: false,
-      date: "2024-02-11",
+      date: "2024-02-14",
     },
     {
       id: 2,
       title: "Wash the dishes",
       description: "Finish backlog of dishes",
       checked: false,
-      date: "2024-02-11",
+      date: "2024-02-14",
     },
-    {
-      id: 3,
-      title: "Continue Programming course",
-      description: "Udemy JavaScript course",
-      checked: false,
-      date: "2024-01-13",
-    },
+
     {
       id: 4,
       title: "Go for hiking",
       description: "Get set for the Tally-hills hike coming up",
       checked: false,
-      date: "2024-03-18",
+      date: "2024-02-14",
     },
 
-    {
-      id: 5,
-      title: "Attend John's birthday party",
-      description: "Bring a gift and join the celebration at 7 PM",
-      checked: false,
-      date: "2024-02-29",
-    },
     {
       id: 6,
       title: "Study for upcoming exams",
@@ -87,13 +77,28 @@ const Page = () => {
     },
   ]);
 
+  
+  // const [email, setEmail] = useState("");
+  // const { data: session } = useSession();
+  
+  // useEffect(() => {
+  //   if (session) {
+  //     setEmail(session.user.email);
+  //     console.log("Session", session);
+  //   }
+  // }, [session]);
+
+  // setTaskData(getUserTasks(email));
+
   const today = new Date().toISOString().split("T")[0]; // Get today's date in YYYY-MM-DD format
 
   // Filter tasks into separate arrays
-  const todaysTasks = taskData.filter((task) => task.date === today);
-  const futureTasks = taskData.filter((task) => task.date > today);
-  const pastTasks = taskData.filter((task) => task.date < today);
+  
 
+  const todaysTasks = taskData.filter((task) => task.due_date === today);
+  const futureTasks = taskData.filter((task) => task.due_date > today);
+  const pastTasks = taskData.filter((task) => task.due_date < today);
+  
   // Sort each category array
   const sortedTodaysTasks = [...todaysTasks].sort(
     (a, b) => a.checked - b.checked
@@ -102,6 +107,9 @@ const Page = () => {
     (a, b) => a.checked - b.checked
   );
   const sortedPastTasks = [...pastTasks].sort((a, b) => a.checked - b.checked);
+  
+      
+
 
   return (
     <div className="text-text px-4 py-16 flex w-full h-full gap-2 overflow-auto">

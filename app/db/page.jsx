@@ -3,7 +3,10 @@ import { useState, useEffect } from "react";
 import { getUserByEmail } from "@/db/user";
 import { saveTask } from "@/db/task";
 import { useSession } from "next-auth/react";
-
+import { getUserTasks } from "@/db/getTasks";
+import { ID } from "appwrite";
+import { Query } from "appwrite";
+import { set } from "date-fns";
 
 
 const page = () => {
@@ -20,7 +23,7 @@ const page = () => {
   const [email, setEmail] = useState("code.tejas@gmail.com");
   const [data, setData] = useState("");
   const [task, setTask] = useState({
-    users: "user_id",
+    users: "",
     content: "",
     task_name: "",
     status: true,
@@ -28,10 +31,19 @@ const page = () => {
     due_date: "",
   });
 
+  const [taskData, setTaskData] = useState("");
+
   const fetchData = async () => {
     const user = await getUserByEmail(email);
     setData(user);
   };
+
+  const getTask = async () => {
+    const userData = await getUserTasks(email);
+    setTaskData(userData);
+    console.log(taskData.tasks);
+  };
+
   const saveData = async () => {
     await saveTask(
       task.users,
@@ -64,6 +76,11 @@ const page = () => {
       <button onClick={() => fetchData()}>Fetch Data</button>
       {/* button to save taks */}
       <button onClick={() => saveData()}>Save Task</button>
+
+
+      <button onClick={() => getTask() }>Get Task</button>
+      <p>Task Data = {JSON.stringify(taskData)}</p>
+
     </div>
   );
 };

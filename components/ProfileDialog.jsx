@@ -12,12 +12,21 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+
+import { useSession } from "next-auth/react";
+
+
 const ProfileDialog = ({ show = true, color, mood }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  
+  const { data: session } = useSession();
   useEffect(() => {
-    setName("John Doe");
-    setEmail("");
+    if (session){
+      setName(session.user.name);
+      setEmail(session.user.email);
+      
+    }
     // here fetch current user data and set the state
   }, []);
 
