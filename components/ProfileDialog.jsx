@@ -15,20 +15,27 @@ import {
 
 import { useSession } from "next-auth/react";
 
-
 const ProfileDialog = ({ show = true, color, mood }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+    return () => {
+      setIsMounted(false);
+    };
+  }, []);
+
   const { data: session } = useSession();
   useEffect(() => {
-    if (session){
+    if (session) {
       setName(session.user.name);
       setEmail(session.user.email);
-      
     }
-    // here fetch current user data and set the state
-  }, []);
+  }, [isMounted, session]);
+
+
 
   const saveProfile = () => {
     console.log("saveProfile");

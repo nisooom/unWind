@@ -46,7 +46,7 @@ const Sidebar = ({ session }) => {
               Task List
             </span>
           </Link>
-          <Link
+          {/* <Link
             href="/calendar"
             className={`round-fill-${mood} w-full px-2 py-2 rounded-lg ${moodClasses[mood]} hover:bg-opacity-10 transition-all duration-300 ease-in-out`}
           >
@@ -54,7 +54,7 @@ const Sidebar = ({ session }) => {
               <Calendar className="" />
               Calendar
             </span>
-          </Link>
+          </Link> */}
           <Link
             href="/store"
             className={`round-${mood} w-full px-2 py-2 rounded-lg ${moodClasses[mood]} hover:bg-opacity-10 transition-all duration-300 ease-in-out`}

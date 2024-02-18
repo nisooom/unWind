@@ -92,7 +92,7 @@ const Page = () => {
       setEmail(session.user.email);
       console.log("Email", email);
     }
-  }, [session]);
+  }, [session, isMounted]);
 
   const getTasks = async () => {
     setTaskData(await getUserTasks(email));
