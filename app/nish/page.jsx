@@ -1,80 +1,93 @@
-import React from "react";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import Image from "next/image";
+"use client";
+import React, { useState, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
+import { getUserByEmail } from '@/db/user';
+import { saveTask } from '@/db/task';
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+function TaskForm() {
+  const [taskName, setTaskName] = useState('');
+  const [description, setDescription] = useState('');
+  const [dueDate, setDueDate] = useState(new Date().toISOString().split("T")[0]);
+  const [tags, setTags] = useState('Personal');
 
-const Shop = () => {
+  const tagOptions = ['Personal', 'Work', 'Shopping', 'Others'];
+
+  const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+      setIsMounted(true);
+      return () => {
+      setIsMounted(false);
+      };
+    }, []);
+
+    const [email, setEmail] = useState("");
+    const [uuid, setUuid] = useState("");
+    const { data: session } = useSession();
+
+    useEffect(() => {
+      if (session) {
+        setEmail(session.user.email);
+        console.log("Email", email);
+        fetchData(email);
+      }
+    }, [session, isMounted]);
+
+
+  async function fetchData(email){
+    const user = await getUserByEmail(email);
+    console.log("User", user);
+    setUuid(user.$id);
+
+  }
+  useEffect(() => {
+    console.log(`Task Name updated: ${taskName}`);
+  }, [taskName]);
+
+  useEffect(() => {
+    console.log(`Description updated: ${description}`);
+  }, [description]);
+
+  useEffect(() => {
+    console.log(`Due Date updated: ${dueDate}`);
+  }, [dueDate]);
+
+  useEffect(() => {
+    console.log(`Tags updated: ${tags}`);
+  }, [tags]);
+
+
+
+  async function addTask() {
+    await saveTask(uuid, description, taskName, false, tags, dueDate);
+    console.log("Task saved successfully");
+    setTaskName('');
+    setDescription('');
+    setDueDate(new Date().toISOString().split("T")[0]);
+    setTags('Personal');
+
+  }
+
   return (
-    <div className="w-full h-full justify-center items-center flex">
-      <div className="w-4/5 h-4/5 bg-util border-white border-2 rounded-xl bg-opacity-20">
-        {/* <div className="w-full h-1/3 "> */}
-
-        {/* <div className=''>
-                    <Carousel className="">
-                        <CarouselContent>
-                            <CarouselItem className="h-64">
-                            
-                                <Image fill={true} src="/imgs/dummy.jpg" alt="placeholder" className='rounded-xl' />
-                            
-                            </CarouselItem>
-                            <CarouselItem className="">
-                            
-                                <Image fill={true} src="/imgs/dummy2.png" alt="placeholder" className='rounded-xl' />
-                            
-                            </CarouselItem>
-                            <CarouselItem className="">
-                                
-                                <Image fill={true} src="/imgs/dummy3.png" alt="placeholder" className='rounded-xl' />
-                            
-                            </CarouselItem>
-                        </CarouselContent>
-                        <CarouselPrevious />
-                        <CarouselNext />
-                    </Carousel>
-                </div>
-            </div> */}
-
-        <div className="w-full h-2/3 flex-row justify-center items-center border-0">
-          <div className="bg-util bg-opacity-20 rounded-xl flex h-24 w-full flex-row space-x-2 space-y-2">
-            <div>
-              <Image
-                src={"/imgs/dummy2.png"}
-                width={88}
-                height={88}
-                className="pl-2 pt-4"
-              ></Image>
-            </div>
-
-            <div className="w-full">
-              <h1 className="text-white text-l font-bold ">Plant A Tree</h1>
-              <p className="text-white text-[12px] text-wrap">
-                Use your points to plant a tree and help reduce carbon
-                emmisions!
-              </p>
-            </div>
-
-            <div className="w-full">
-              <span className="text-white text-sm flex">🍀10</span>
-            </div>
-          </div>
+    <div>
+      <div className="text-white">
+        <h1>Add a new task</h1>
+        <div className="text-black">
+        <input type="text" placeholder="Task Name" value={taskName} onChange={e => setTaskName(e.target.value)} />
+        <input type="text" placeholder="Description" value={description} onChange={e => setDescription(e.target.value)} />
+        <input type="date" value={dueDate} onChange={e => setDueDate(e.target.value)} />
+        <select value={tags} onChange={e => setTags(e.target.value)}>
+          {tagOptions.map(tag => (
+            <option key={tag} value={tag}>
+              {tag}
+            </option>
+          ))}
+        </select>
         </div>
+        <button onClick={addTask}>Save</button>
       </div>
     </div>
   );
-};
+}
 
-export default Shop;
+export default TaskForm;
