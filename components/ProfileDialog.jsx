@@ -47,9 +47,9 @@ const ProfileDialog = ({ show = true, color, mood }) => {
   return (
     <Dialog className="text-text">
       <DialogTrigger
-        className={`round-fill-${mood} transition-all duration-300 ease-in-out rounded-md text-text w-full bg-transparent px-2 py-2 rounded-md ${color} hover:bg-opacity-10 flex items-center justify-center sm:justify-start sm:items-start`}
+        className={`round-fill-${mood} transition-all duration-300 ease-in-out text-text w-full bg-transparent px-2 py-2 rounded-md ${color} hover:bg-opacity-10 flex items-center justify-center sm:justify-start sm:items-start`}
       >
-        <span className="text-text flex gap-2 items-center text-text text-lg hover:fill-red-500">
+        <span className="flex gap-2 items-center text-text text-lg hover:fill-red-500">
           <Profile className="" />
           {show && "Profile"}
         </span>
