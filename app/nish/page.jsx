@@ -37,7 +37,7 @@ function TaskForm() {
   async function fetchData(email){
     const user = await getUserByEmail(email);
     // console.log("User", user);
-    setUuid(user.$id);
+    setUuid(user?.$id);
 
   }
   useEffect(() => {
@@ -59,6 +59,10 @@ function TaskForm() {
 
 
   async function addTask() {
+    if (taskName === '') {
+      console.log("Task Name is required");
+      return;
+    }
     await saveTask(uuid, description, taskName, false, tags, dueDate);
     console.log("Task saved successfully");
     setTaskName('');
@@ -84,7 +88,8 @@ function TaskForm() {
             ))}
           </select>
         </div>
-        <button onClick={addTask}>Save</button>
+
+        <button onClick={addTask} disabled={taskName != ''}>Save</button>
       </div>
     </div>
   );
