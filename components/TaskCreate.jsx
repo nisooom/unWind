@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { getUserByEmail } from "@/db/user";
 import { saveTask } from "@/db/task";
@@ -11,9 +11,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "./ui/Input";
-
-import { Button } from "./ui/Button";
+import { Input } from "@/components/ui/Input";
+import { Button } from "@/components/ui/Button";
 
 const TaskCreate = ({ getTasks }) => {
   const [taskName, setTaskName] = useState("");
