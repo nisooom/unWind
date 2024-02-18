@@ -4,6 +4,7 @@ import TaskCard from "@/components/TaskCard";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { getUserTasks } from "@/db/user";
+import TaskCreate from "@/components/TaskCreate";
 
 const Page = () => {
   const [taskData, setTaskData] = useState([
@@ -127,103 +128,107 @@ const Page = () => {
   const sortedPastTasks = [...pastTasks].sort((a, b) => a.status - b.status);
 
   return (
-    <div className="text-text px-4 py-16 flex w-full h-full gap-2 overflow-auto">
-      {/* past task */}
-      {/* {JSON.stringify(taskData, null, 2)} */}
-      <div className="flex flex-col gap-3 w-1/3 h-full min-w-64">
-        <div className="text-text text-lg font-semibold">Past</div>
-        <AnimatePresence>
-          {sortedPastTasks.length > 0 ? (
-            sortedPastTasks.map((task) => (
-              <motion.div
-                key={task.$id}
-                layout
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                <TaskCard
-                  id={task.$id}
-                  title={task.task_name}
-                  description={task.content}
-                  checked={task.status}
-                  setTaskData={setTaskData}
-                />
-              </motion.div>
-            ))
-          ) : (
-            <div className="opacity-60 min-w-48 w-full text-wrap px-2 py-2 bg-white bg-opacity-10 rounded-md flex">
-              <span className="text-white h-full flex justify-center items-center px-2">
-                No tasks
-              </span>
-            </div>
-          )}
-        </AnimatePresence>
+    <div className="w-full h-full flex flex-col">
+      <div className="mr-24 px-4 py-4">
+        <TaskCreate getTasks={getTasks} />
       </div>
 
-      <div className="flex flex-col gap-3 w-1/3 h-full min-w-64">
-        <div className="text-text text-lg font-semibold">Today</div>
-        <AnimatePresence>
-          {sortedTodaysTasks.length > 0 ? (
-            sortedTodaysTasks.map((task) => (
-              <motion.div
-                key={task.$id}
-                layout
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                <TaskCard
-                  id={task.$id}
-                  title={task.task_name}
-                  description={task.content}
-                  checked={task.status}
-                  setTaskData={setTaskData}
-                />
-              </motion.div>
-            ))
-          ) : (
-            <div className="opacity-60 min-w-48 w-full text-wrap px-2 py-2 bg-white bg-opacity-10 rounded-md flex">
-              <span className="text-white h-full flex justify-center items-center px-2">
-                No tasks
-              </span>
-            </div>
-          )}
-        </AnimatePresence>
+      <div className="text-text px-4 py-2 flex w-full h-full gap-2 overflow-auto">
+        {/* past task */}
+        {/* {JSON.stringify(taskData, null, 2)} */}
+        <div className="flex flex-col gap-3 w-1/3 h-full min-w-64">
+          <div className="text-text text-lg font-semibold">Past</div>
+          <AnimatePresence>
+            {sortedPastTasks.length > 0 ? (
+              sortedPastTasks.map((task) => (
+                <motion.div
+                  key={task.$id}
+                  layout
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  <TaskCard
+                    id={task.$id}
+                    title={task.task_name}
+                    description={task.content}
+                    checked={task.status}
+                    setTaskData={setTaskData}
+                  />
+                </motion.div>
+              ))
+            ) : (
+              <div className="opacity-60 min-w-48 w-full text-wrap px-2 py-2 bg-white bg-opacity-10 rounded-md flex">
+                <span className="text-white h-full flex justify-center items-center px-2">
+                  No tasks
+                </span>
+              </div>
+            )}
+          </AnimatePresence>
+        </div>
+        <div className="flex flex-col gap-3 w-1/3 h-full min-w-64">
+          <div className="text-text text-lg font-semibold">Today</div>
+          <AnimatePresence>
+            {sortedTodaysTasks.length > 0 ? (
+              sortedTodaysTasks.map((task) => (
+                <motion.div
+                  key={task.$id}
+                  layout
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  <TaskCard
+                    id={task.$id}
+                    title={task.task_name}
+                    description={task.content}
+                    checked={task.status}
+                    setTaskData={setTaskData}
+                  />
+                </motion.div>
+              ))
+            ) : (
+              <div className="opacity-60 min-w-48 w-full text-wrap px-2 py-2 bg-white bg-opacity-10 rounded-md flex">
+                <span className="text-white h-full flex justify-center items-center px-2">
+                  No tasks
+                </span>
+              </div>
+            )}
+          </AnimatePresence>
+        </div>
+        {/* future task */}
+        <div className="flex flex-col gap-3 w-1/3 h-full min-w-64">
+          <div className="text-text text-lg font-semibold">Future</div>
+          <AnimatePresence>
+            {sortedFutureTasks.length > 0 ? (
+              sortedFutureTasks.map((task) => (
+                <motion.div
+                  key={task.$id}
+                  layout
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  <TaskCard
+                    id={task.$id}
+                    title={task.task_name}
+                    description={task.content}
+                    checked={task.status}
+                    setTaskData={setTaskData}
+                  />
+                </motion.div>
+              ))
+            ) : (
+              <div className=" opacity-60 min-w-48 w-full text-wrap px-2 py-2 bg-white bg-opacity-10 rounded-md flex">
+                <span className=" text-white h-full flex justify-center items-center px-2">
+                  No tasks
+                </span>
+              </div>
+            )}
+          </AnimatePresence>
+        </div>
+        {/* {JSON.stringify(taskData)} */}
       </div>
-      {/* future task */}
-      <div className="flex flex-col gap-3 w-1/3 h-full min-w-64">
-        <div className="text-text text-lg font-semibold">Future</div>
-        <AnimatePresence>
-          {sortedFutureTasks.length > 0 ? (
-            sortedFutureTasks.map((task) => (
-              <motion.div
-                key={task.$id}
-                layout
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                <TaskCard
-                  id={task.$id}
-                  title={task.task_name}
-                  description={task.content}
-                  checked={task.status}
-                  setTaskData={setTaskData}
-                />
-              </motion.div>
-            ))
-          ) : (
-            <div className=" opacity-60 min-w-48 w-full text-wrap px-2 py-2 bg-white bg-opacity-10 rounded-md flex">
-              <span className=" text-white h-full flex justify-center items-center px-2">
-                No tasks
-              </span>
-            </div>
-          )}
-        </AnimatePresence>
-      </div>
-
-      {/* {JSON.stringify(taskData)} */}
     </div>
   );
 };
