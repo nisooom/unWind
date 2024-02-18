@@ -2,9 +2,8 @@
 import React, { useState, useEffect } from "react";
 import TaskCard from "@/components/TaskCard";
 import { AnimatePresence, motion } from "framer-motion";
-import { getUserTasks } from "@/db/getTasks";
 import { useSession } from "next-auth/react";
-
+import { getUserTasks } from "@/db/user";
 
 const Page = () => {
   const [taskData, setTaskData] = useState([
@@ -76,85 +75,95 @@ const Page = () => {
       date: "2023-04-30",
     },
   ]);
+  const [isMounted, setIsMounted] = useState(false);
 
-  
-  // const [email, setEmail] = useState("");
-  // const { data: session } = useSession();
-  
-  // useEffect(() => {
-  //   if (session) {
-  //     setEmail(session.user.email);
-  //     console.log("Session", session);
-  //   }
-  // }, [session]);
+  useEffect(() => {
+    setIsMounted(true);
+    return () => {
+      setIsMounted(false);
+    };
+  }, []);
 
-  // setTaskData(getUserTasks(email));
+  const [email, setEmail] = useState("");
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    if (session) {
+      setEmail(session.user.email);
+      console.log("Email", email);
+    }
+  }, [session]);
+
+  const getTasks = async () => {
+    // setTaskData(getUserTasks(email));
+    // convert to array and set state
+    setTaskData(await getUserTasks(email));
+    console.log("Task Data", await getUserTasks(email));
+  };
+  useEffect(() => {
+    getTasks();
+  }, [email]);
 
   const today = new Date().toISOString().split("T")[0]; // Get today's date in YYYY-MM-DD format
 
   // Filter tasks into separate arrays
-  
 
   const todaysTasks = taskData.filter((task) => task.due_date === today);
   const futureTasks = taskData.filter((task) => task.due_date > today);
   const pastTasks = taskData.filter((task) => task.due_date < today);
-  
+
   // Sort each category array
   const sortedTodaysTasks = [...todaysTasks].sort(
-    (a, b) => a.checked - b.checked
+    (a, b) => a.status - b.status
   );
   const sortedFutureTasks = [...futureTasks].sort(
-    (a, b) => a.checked - b.checked
+    (a, b) => a.status - b.status
   );
-  const sortedPastTasks = [...pastTasks].sort((a, b) => a.checked - b.checked);
-  
-      
-
+  const sortedPastTasks = [...pastTasks].sort((a, b) => a.status - b.status);
 
   return (
     <div className="text-text px-4 py-16 flex w-full h-full gap-2 overflow-auto">
       {/* past task */}
-
+      {JSON.stringify(taskData)}
       <div className="flex flex-col gap-3 w-1/3 h-full min-w-64">
         <div className="text-text text-lg font-semibold">Past</div>
         <AnimatePresence>
           {sortedPastTasks.map((task) => (
             <motion.div
-              key={task.id}
+              key={task.$id}
               layout
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
               <TaskCard
-                id={task.id}
-                title={task.title}
-                description={task.description}
-                checked={task.checked}
+                id={task.$id}
+                title={task.task_name}
+                description={task.content}
+                checked={task.status}
                 setTaskData={setTaskData}
               />
             </motion.div>
           ))}
         </AnimatePresence>
       </div>
-      {/* today's task */}
 
       <div className="flex flex-col gap-3 w-1/3 h-full min-w-64">
         <div className="text-text text-lg font-semibold">Today</div>
         <AnimatePresence>
           {sortedTodaysTasks.map((task) => (
             <motion.div
-              key={task.id}
+              key={task.$id}
               layout
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
               <TaskCard
-                id={task.id}
-                title={task.title}
-                description={task.description}
-                checked={task.checked}
+                id={task.$id}
+                title={task.task_name}
+                description={task.content}
+                checked={task.status}
                 setTaskData={setTaskData}
               />
             </motion.div>
@@ -162,7 +171,7 @@ const Page = () => {
         </AnimatePresence>
       </div>
       {/* future task */}
-
+      {/* 
       <div className="flex flex-col gap-3 w-1/3 h-full min-w-64">
         {" "}
         <div className="text-text text-lg font-semibold">Future</div>
@@ -185,7 +194,7 @@ const Page = () => {
             </motion.div>
           ))}
         </AnimatePresence>
-      </div>
+      </div> */}
 
       {/* {JSON.stringify(taskData)} */}
     </div>

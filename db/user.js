@@ -20,6 +20,20 @@ const getUserByEmail = async (email) => {
     console.log(error);
   }
 };
+//  get user tasks by email
+const getUserTasks = async (email) => {
+  try {
+    const response = await databases.listDocuments(
+      process.env.NEXT_PUBLIC_APPWRITE_DB_ID,
+      process.env.NEXT_PUBLIC_APPWRITE_USERS_ID,
+      [Query.equal("email", email)]
+    );
+    console.log(response?.documents[0]?.tasks);
+    return response?.documents[0]?.tasks || [];
+  } catch (error) {
+    console.log(error);
+  }
+};
 const saveUser = async (name, picture, email) => {
   try {
     await databases.createDocument(
@@ -38,4 +52,4 @@ const saveUser = async (name, picture, email) => {
   }
 };
 
-export { getUserByEmail, saveUser };
+export { getUserByEmail, saveUser, getUserTasks };

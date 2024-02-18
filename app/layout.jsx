@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
               <SidebarMobile />
               <Backdrop />
               <Coins />
-              <Mood />
+              {/* <Mood /> */}
               <main className="sm:pl-56 md:pl-56 md:pb-0 flex bg-black box-border w-full pb-20 sm:pb-0">
                 <div className="w-full h-full z-20">
                   <AuthProvider>{children}</AuthProvider>

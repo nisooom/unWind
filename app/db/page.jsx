@@ -1,50 +1,56 @@
 "use client";
 import { useState, useEffect } from "react";
-import { getUserByEmail } from "@/db/user";
+import { getUserByEmail, getUserTasks } from "@/db/user";
 import { saveTask } from "@/db/task";
 import { useSession } from "next-auth/react";
-import { getUserTasks } from "@/db/getTasks";
-import { ID } from "appwrite";
-import { Query } from "appwrite";
-import { set } from "date-fns";
 
+import { Button } from "@/components/ui/button";
 
 const page = () => {
-
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   useEffect(() => {
     if (session) {
-      setEmail(session.user.email);
-      console.log("Session", session);
+      setUserEmail(session.user.email);
+      // console.log("Session", session);
     }
   }, [session]);
 
-
-  const [email, setEmail] = useState("code.tejas@gmail.com");
+  const [userEmail, setUserEmail] = useState(null);
+  useEffect(() => {
+    if (status === "authenticated") {
+      setUserEmail(session.user.email);
+    }
+  }, [status]);
   const [data, setData] = useState("");
   const [task, setTask] = useState({
     users: "",
-    content: "",
-    task_name: "",
+    content: "hdhdfh",
+    task_name: "one",
     status: true,
     tags: "",
     due_date: "",
   });
 
-  const [taskData, setTaskData] = useState("");
-
   const fetchData = async () => {
-    const user = await getUserByEmail(email);
+    const user = await getUserByEmail(userEmail);
+    console.log("User", user);
     setData(user);
   };
-
-  const getTask = async () => {
-    const userData = await getUserTasks(email);
-    setTaskData(userData);
-    console.log(taskData.tasks);
-  };
+  useEffect(() => {
+    if (status === "authenticated") {
+      fetchData();
+    }
+  }, [userEmail]);
+  useEffect(() => {
+    setTask({ ...task, users: data.$id });
+  }, [data]);
 
   const saveData = async () => {
+    // log email
+    console.log("Saving in ", userEmail);
+    // log task
+    console.log("Task", task);
+
     await saveTask(
       task.users,
       task.content,
@@ -55,32 +61,34 @@ const page = () => {
     );
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const user = await getUserByEmail(email);
-      setData(user);
-    };
-    fetchData();
-  }, [email]);
+  const [taskData, setTaskData] = useState([]);
 
-  // useEffect when data is upoates to udpates users from task
+  const getTasks = async () => {
+    if (!userEmail) return;
+    let res = await getUserTasks(userEmail);
+    // console.log("Res", res);
+    console.log(userEmail);
+    setTaskData(res);
+  };
   useEffect(() => {
-    setTask({ ...task, users: data.$id });
-  }, [data]);
+    getTasks();
+  }, [userEmail]);
 
   return (
     <div className="text-white">
       <h1>Page</h1>
-      <p>Data = {JSON.stringify(data)}</p>
+      {/* <p>Data = {JSON.stringify(data, null, 4)}</p> */}
       {/* button to fetch data */}
       <button onClick={() => fetchData()}>Fetch Data</button>
+
       {/* button to save taks */}
       <button onClick={() => saveData()}>Save Task</button>
 
-
-      <button onClick={() => getTask() }>Get Task</button>
-      <p>Task Data = {JSON.stringify(taskData)}</p>
-
+      {/* button to get tasks */}
+      <button onClick={() => getTasks()}>Get Tasks</button>
+      {/* format json */}
+      {/* <pre>{JSON.stringify(task, null, 2)}</pre> */}
+      <pre>{JSON.stringify(taskData, null, 2)}</pre>
     </div>
   );
 };
