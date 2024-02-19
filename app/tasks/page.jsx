@@ -154,6 +154,8 @@ const Page = () => {
                     description={task.content}
                     checked={task.status}
                     setTaskData={setTaskData}
+                    due_date={task.due_date}
+                    tags={task.tags}
                   />
                 </motion.div>
               ))

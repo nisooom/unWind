@@ -148,7 +148,11 @@ const Mood = () => {
         <DialogDescription className="text-center flex justify-center space-x-6 mt-4">
           <DialogTrigger
             className="text-lg text-text bg-util bg-opacity-10 hover:bg-opacity-15 transition-all w-1/2 px-2 py-2 rounded-md hover:text-text hover:text-opacity-85 cursor-pointer font-semibold"
-            onClick={() => handleChangeMood("default")}
+            onClick={() => {
+              if (mood === "default") {
+                handleChangeMood("default");
+              }
+            }}
           >
             {mood !== "default" ? "Next" : "Skip"}
           </DialogTrigger>
