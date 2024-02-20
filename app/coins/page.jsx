@@ -3,7 +3,7 @@ import React from "react";
 import { useCoins } from "../hooks/coins";
 import { Button } from "@/components/ui/button";
 import { CoinsContext } from "../context/coins";
-import {updateCoins} from "../db/updateCoins";
+
 
 const page = () => {
   const { getCoins, addCoins, removeCoins } = useCoins();
