@@ -52,4 +52,39 @@ const saveUser = async (name, picture, email) => {
   }
 };
 
-export { getUserByEmail, saveUser, getUserTasks };
+const updateUserTask = async (task, id) => {
+  const { title, description, due_date, status, tags } = task;
+  try {
+    await databases.updateDocument(
+      process.env.NEXT_PUBLIC_APPWRITE_DB_ID,
+      process.env.NEXT_PUBLIC_APPWRITE_TASKS_ID,
+      id,
+      {
+        task_name: title,
+        content: description,
+        due_date: due_date,
+        status: status,
+        tags: tags,
+      }
+    );
+    console.log("Task updated successfully");
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const deleteTask = async (id) => {
+  try {
+    await databases.deleteDocument(
+      process.env.NEXT_PUBLIC_APPWRITE_DB_ID,
+      process.env.NEXT_PUBLIC_APPWRITE_TASKS_ID,
+      id
+    );
+    console.log("Task deleted successfully");
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+export { deleteTask, updateUserTask, getUserByEmail, saveUser, getUserTasks };

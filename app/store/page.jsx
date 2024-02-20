@@ -1,7 +1,11 @@
 "use client";
 import React, { useState } from "react";
+import { useCoins } from "../hooks/coins";
 
 const Page = () => {
+
+  const { getCoins, addCoins, removeCoins } = useCoins();
+
   const [items, setItems] = useState([
     { id: 1, name: "Zero Hunger", price: 10, img: "/imgs/zero_hunger.png" },
     { id: 2, name: "Quality Education", price: 20, img: "/imgs/quality_education.png" },
@@ -31,7 +35,7 @@ const Page = () => {
                     {item.name}
                   </span>
                   <div className="px-2 rounded-sm bg-gray-300 bg-opacity-20 text-sm flex justify-center items-center">
-                    🍀 {item.price}
+                    <button onClick={() => {removeCoins(item.price)}}>🍀 {item.price}</button>
                   </div>
                 </div>
                 <p className="text-sm opacity-50">

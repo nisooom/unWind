@@ -41,8 +41,8 @@ const Timer = ({ time }) => {
       return;
     }
     let coins = Math.round(totalTime / 20); // Calculate coins based on session time
-    coins = Math.round(coins / 5) * 5; // Round to nearest 5
-    setTimeout(() => addCoins(10), 0); // Delay state update
+    coins = Math.round((coins / 5) * 5);
+    setTimeout(() => addCoins(coins), 0); // Delay state update
     console.log("Timer completed", coins);
     setHasCompleted(true); // Set hasCompleted to true
     setTimeLeft(time); // Reset timeLeft

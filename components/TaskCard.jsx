@@ -13,6 +13,7 @@ import {
 import { Input } from "./ui/input";
 import { Select } from "./ui/select";
 import { Button } from "./ui/button";
+import { deleteTask, updateUserTask } from "@/db/user";
 
 const TaskCard = ({
   title,
@@ -22,6 +23,7 @@ const TaskCard = ({
   due_date,
   tags,
   setTaskData,
+  getTasks,
 }) => {
   const [isChecked, setIsChecked] = useState(checked);
   useEffect(() => {
@@ -53,7 +55,7 @@ const TaskCard = ({
     month = month < 10 ? "0" + month : month;
     day = day < 10 ? "0" + day : day;
 
-    return `${year}-${month}-${day}`;
+    return `${day}-${month}-${year}`;
   };
 
   const tagOptions = ["Personal", "Work", "Shopping", "Others"];
@@ -61,13 +63,29 @@ const TaskCard = ({
   const [localDescription, setLocalDescription] = useState(description);
   const [localDate, setLocalDate] = useState(convertDate(due_date));
 
-  const [localTags, setLocalTags] = useState(tags);
+  const [localTags, setLocalTags] = useState();
+  const [taskid, setTaskid] = useState(id);
 
-  const updateTaskDB = () => {
+  useEffect(() => {
+    setTaskid(id);
+  }, [id]);
+
+
+  const updateTaskDB = async () => {
+    await updateUserTask({
+      task_name: localTitle,
+      content: localDescription,
+      due_date: convertDate(localDate),
+      tags: localTags,
+      status: isChecked,
+    }, taskid);
+    getTasks();
     console.log("Task updated successfully");
   };
 
-  const deleteTaskDB = () => {
+  const deleteTaskDB = async () => {
+    await deleteTask(taskid);
+    getTasks();
     console.log("Task deleted successfully");
   };
 
@@ -118,7 +136,7 @@ const TaskCard = ({
               className="bg-opacity-10 text-text text-opacity-50 w-full px-2 py-1 mt-2 border border-util border-[1px] border-opacity-20 rounded"
               type="date"
               value={localDate}
-              onChange={(e) => setLocalDate(e.target.value)}
+              onChange={(e) => setLocalDate(e.target.value)} // convert date to iso string
             />
             <select
               value={localTags}

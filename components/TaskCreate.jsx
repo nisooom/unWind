@@ -45,8 +45,11 @@ const TaskCreate = ({ getTasks }) => {
   }, [session, isMounted]);
 
   async function fetchData(email) {
+
     const user = await getUserByEmail(email);
+    console.log("User", user);
     setUuid(user?.$id);
+  
   }
 
   async function addTask() {
@@ -107,13 +110,14 @@ const TaskCreate = ({ getTasks }) => {
             value={dueDate}
             onChange={(e) => setDueDate(e.target.value)}
           />
+
           <select
             value={tags}
             className="w-full bg-opacity-10 text-text text-opacity-50 w-full px-2 py-2 mt-2 border border-util border-[1px] border-opacity-20 rounded bg-util"
             onChange={(e) => setTags(e.target.value)}
           >
             {tagOptions.map((tag) => (
-              <option key={tag} value={tag}>
+              <option className="bg-opacity-10 text-black text-opacity-50" key={tag} value={tag}>
                 {tag}
               </option>
             ))}

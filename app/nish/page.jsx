@@ -36,7 +36,7 @@ function TaskForm() {
 
   async function fetchData(email){
     const user = await getUserByEmail(email);
-    // console.log("User", user);
+    console.log("User", user);
     setUuid(user?.$id);
 
   }
