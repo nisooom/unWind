@@ -14,6 +14,7 @@ import { Input } from "./ui/input";
 import { Select } from "./ui/select";
 import { Button } from "./ui/button";
 import { deleteTask, updateUserTask } from "@/db/user";
+import { set } from "date-fns";
 
 const TaskCard = ({
   title,
@@ -55,7 +56,7 @@ const TaskCard = ({
     month = month < 10 ? "0" + month : month;
     day = day < 10 ? "0" + day : day;
 
-    return `${day}-${month}-${year}`;
+    return `${year}-${month}-${day}`;
   };
 
   const tagOptions = ["Personal", "Work", "Shopping", "Others"];
@@ -69,16 +70,27 @@ const TaskCard = ({
   useEffect(() => {
     setTaskid(id);
   }, [id]);
-
+  //  use effectb for local states
+  useEffect(() => {
+    // og everthing
+    console.log("-----------------");
+    console.log("Title", localTitle);
+    console.log("Description", localDescription);
+    console.log("Date", localDate);
+    console.log("Tags", localTags);
+  }, [localDescription, localTags, localTitle, localDate]);
 
   const updateTaskDB = async () => {
-    await updateUserTask({
-      task_name: localTitle,
-      content: localDescription,
-      due_date: convertDate(localDate),
-      tags: localTags,
-      status: isChecked,
-    }, taskid);
+    await updateUserTask(
+      {
+        task_name: localTitle,
+        content: localDescription,
+        due_date: localDate,
+        status: isChecked,
+        tags: localTags,
+      },
+      taskid
+    );
     getTasks();
     console.log("Task updated successfully");
   };

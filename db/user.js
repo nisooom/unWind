@@ -28,7 +28,7 @@ const getUserTasks = async (email) => {
       process.env.NEXT_PUBLIC_APPWRITE_USERS_ID,
       [Query.equal("email", email)]
     );
-    console.log(response?.documents[0]?.tasks);
+    // console.log(response?.documents[0]?.tasks);
     return response?.documents[0]?.tasks || [];
   } catch (error) {
     console.log(error);
@@ -55,7 +55,8 @@ const saveUser = async (name, picture, email) => {
 const updateUserTask = async (task, id) => {
   const { title, description, due_date, status, tags } = task;
   try {
-    await databases.updateDocument(
+    console.log("Updating task", id);
+    const response = await databases.updateDocument(
       process.env.NEXT_PUBLIC_APPWRITE_DB_ID,
       process.env.NEXT_PUBLIC_APPWRITE_TASKS_ID,
       id,
@@ -68,10 +69,11 @@ const updateUserTask = async (task, id) => {
       }
     );
     console.log("Task updated successfully");
+    return response;
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 const deleteTask = async (id) => {
   try {
@@ -84,7 +86,6 @@ const deleteTask = async (id) => {
   } catch (error) {
     console.log(error);
   }
-}
-
+};
 
 export { deleteTask, updateUserTask, getUserByEmail, saveUser, getUserTasks };
