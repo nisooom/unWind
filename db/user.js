@@ -52,10 +52,24 @@ const saveUser = async (name, picture, email) => {
   }
 };
 
-const updateUserTask = async (task, id) => {
-  const { title, description, due_date, status, tags } = task;
+const updateUserTask = async (
+  title,
+  description,
+  due_date,
+  status,
+  tags,
+  id
+) => {
   try {
-    console.log("Updating task", id);
+    console.log(
+      "Updating task",
+      title,
+      description,
+      due_date,
+      status,
+      tags,
+      id
+    );
     const response = await databases.updateDocument(
       process.env.NEXT_PUBLIC_APPWRITE_DB_ID,
       process.env.NEXT_PUBLIC_APPWRITE_TASKS_ID,

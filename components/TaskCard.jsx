@@ -64,7 +64,7 @@ const TaskCard = ({
   const [localDescription, setLocalDescription] = useState(description);
   const [localDate, setLocalDate] = useState(convertDate(due_date));
 
-  const [localTags, setLocalTags] = useState();
+  const [localTags, setLocalTags] = useState(tags);
   const [taskid, setTaskid] = useState(id);
 
   useEffect(() => {
@@ -82,13 +82,11 @@ const TaskCard = ({
 
   const updateTaskDB = async () => {
     await updateUserTask(
-      {
-        task_name: localTitle,
-        content: localDescription,
-        due_date: localDate,
-        status: isChecked,
-        tags: localTags,
-      },
+      localTitle,
+      localDescription,
+      localDate,
+      isChecked,
+      localTags,
       taskid
     );
     getTasks();

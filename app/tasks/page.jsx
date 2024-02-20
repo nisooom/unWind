@@ -148,7 +148,7 @@ const Page = () => {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                 >
-                  <TaskCard 
+                  <TaskCard
                     getTasks={getTasks}
                     id={task.$id}
                     title={task.task_name}
@@ -188,6 +188,8 @@ const Page = () => {
                     description={task.content}
                     checked={task.status}
                     setTaskData={setTaskData}
+                    due_date={task.due_date}
+                    tags={task.tags}
                   />
                 </motion.div>
               ))
@@ -220,6 +222,8 @@ const Page = () => {
                     description={task.content}
                     checked={task.status}
                     setTaskData={setTaskData}
+                    due_date={task.due_date}
+                    tags={task.tags}
                   />
                 </motion.div>
               ))
