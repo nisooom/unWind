@@ -10,9 +10,15 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
+import { getUserCoins} from "@/db/updateCoins";
+import { useSession } from "next-auth/react";
+
 const Coins = () => {
   const { coins, setCoins } = useContext(CoinsContext);
   const [displayedCoins, setDisplayedCoins] = useState(0);
+
+  
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -21,7 +27,7 @@ const Coins = () => {
       } else if (displayedCoins > coins) {
         setDisplayedCoins(displayedCoins - 1);
       }
-    }, 20); // adjust time here
+    }, 10); // adjust time here
 
     return () => clearInterval(interval);
   }, [coins, displayedCoins]);

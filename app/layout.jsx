@@ -17,7 +17,8 @@ import { MoodContext } from "./context/mood";
 import Coins from "@/components/Coins";
 import AuthProvider from "@/components/AuthProvider";
 import Mood from "@/components/Mood";
-
+import { useSession } from "next-auth/react";
+import { getUserCoins } from "@/db/updateCoins";
 const inter = Inter({ subsets: ["latin"] });
 
 // export const metadata = {
@@ -25,8 +26,11 @@ const inter = Inter({ subsets: ["latin"] });
 //   description: "Unwind App",
 // };
 
+
 export default function RootLayout({ children }) {
+
   const [coins, setCoins] = useState(100);
+
   const [mood, setMood] = useState(
     typeof window !== "undefined"
       ? window.localStorage.getItem("mood") || "default"
@@ -43,6 +47,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <div className="flex h-full">
+        <AuthProvider>
           <MoodContext.Provider value={{ mood, setMood }}>
             <CoinsContext.Provider value={{ coins, setCoins }}>
               <Sidebar />
@@ -52,11 +57,12 @@ export default function RootLayout({ children }) {
               <Mood />
               <main className="sm:pl-56 md:pl-56 md:pb-0 flex bg-black box-border w-full pb-20 sm:pb-0">
                 <div className="w-full h-full z-20">
-                  <AuthProvider>{children}</AuthProvider>
+                  {children}
                 </div>
               </main>
             </CoinsContext.Provider>
           </MoodContext.Provider>
+          </AuthProvider>
         </div>
       </body>
     </html>

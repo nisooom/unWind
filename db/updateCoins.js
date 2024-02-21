@@ -14,7 +14,7 @@ const getUserCoins = async (email) => {
       [Query.equal("email", email)],
     );
     console.log(res.documents[0]?.coins);
-    return res.documents[0]?.coins || -1;
+    return parseInt(res.documents[0]?.coins) || -1;
 } catch (error) {
     console.log(error);
   }

@@ -22,7 +22,6 @@ export function useCoins() {
   useEffect(() => {
     if (session) {
       setEmail(session.user.email);
-      console.log("Email", email);
       
       async () => {
         const userCoins = await getUserCoins(email);
