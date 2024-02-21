@@ -45,16 +45,18 @@ const TaskCreate = ({ getTasks }) => {
   }, [session, isMounted]);
 
   async function fetchData(email) {
-
     const user = await getUserByEmail(email);
     console.log("User", user);
     setUuid(user?.$id);
-  
   }
 
   async function addTask() {
     if (taskName === "") {
       console.log("Task Name is required");
+      return;
+    }
+    if (uuid === "") {
+      console.log("User not found");
       return;
     }
     await saveTask(uuid, description, taskName, false, tags, dueDate);
@@ -117,7 +119,11 @@ const TaskCreate = ({ getTasks }) => {
             onChange={(e) => setTags(e.target.value)}
           >
             {tagOptions.map((tag) => (
-              <option className="bg-opacity-10 text-black text-opacity-50" key={tag} value={tag}>
+              <option
+                className="bg-opacity-10 text-black text-opacity-50"
+                key={tag}
+                value={tag}
+              >
                 {tag}
               </option>
             ))}
